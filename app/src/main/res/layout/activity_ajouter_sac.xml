@@ -23,6 +23,7 @@
             android:textColor="#FFF" />
 
         <EditText
+            android:id="@+id/edit_text_name_ajouterArticle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -53,6 +54,7 @@
             android:textColor="#FFF" />
 
         <EditText
+            android:id="@+id/edit_text_prix_ajouterArticle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -82,6 +84,7 @@
             android:textColor="#FFF" />
 
         <EditText
+            android:id="@+id/edit_text_qte_ajouterArticle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -89,6 +92,7 @@
             android:background="#333"
             android:padding="3dp"
             android:hint="quantité.."
+            android:text="1"
             android:inputType="number"
             android:textColor="#FFF" />
 
@@ -103,6 +107,7 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/codebare_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left|center_vertical"
@@ -111,6 +116,7 @@
 
         <Button
 
+            android:id="@+id/scan_btn_ajouterArticle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right|center_vertical"
@@ -153,7 +159,9 @@
         android:orientation="horizontal">
 
 
-        <Button xmlns:app="http://schemas.android.com/apk/res-auto"
+        <Button
+            android:id="@+id/save_sac_btn"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"

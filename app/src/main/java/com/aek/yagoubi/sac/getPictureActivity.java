@@ -12,6 +12,7 @@ import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -65,15 +66,11 @@ public class getPictureActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (camera != null) {
                     camera.takePicture(null, null, mPictureCalback);
-
-
                 }
             }
         });
 
-
     }
-
 
   Camera.PictureCallback mPictureCalback = new Camera.PictureCallback() {
 
@@ -98,15 +95,10 @@ public class getPictureActivity extends AppCompatActivity {
                             + "/dirr",fileName);
                   //  Toast.makeText(getPictureActivity.this, file.getAbsolutePath(),Toast.LENGTH_LONG).show();
                     fileNames += "," + fileName;
-
-
-
-
                     try
                     {
                         FileOutputStream fileOutputStream=new FileOutputStream(file);
                         bitmap.compress(Bitmap.CompressFormat.JPEG,100, fileOutputStream);
-
                         fileOutputStream.flush();
                         fileOutputStream.close();
                         camera.startPreview();
@@ -127,25 +119,18 @@ public class getPictureActivity extends AppCompatActivity {
 
         }
     };
-
     @Override
-    protected void onStop() {
-        super.onStop();
-        Intent returnIntent = new Intent();
-        returnIntent.putExtra("fileNames",fileNames);
-        setResult(getPictureActivity.RESULT_OK,returnIntent);
-        finish();
+    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            Intent returnIntent = new Intent();
+            returnIntent.putExtra("fileNames",fileNames);
+            setResult(getPictureActivity.RESULT_OK,returnIntent);
+            finish();
 
+            return true;
+        }
 
+        return super.onKeyDown(keyCode, event);
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Intent returnIntent = new Intent();
-        returnIntent.putExtra("fileNames",fileNames);
-        setResult(getPictureActivity.RESULT_OK,returnIntent);
-        finish();
-
-    }
 }

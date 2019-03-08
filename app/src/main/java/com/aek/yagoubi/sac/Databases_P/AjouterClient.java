@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+
 public class AjouterClient extends SQLiteOpenHelper {
 
    private static String DATABASE_NAME = "s";
@@ -20,7 +22,9 @@ public class AjouterClient extends SQLiteOpenHelper {
         db.execSQL("create table " + TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT , " +
                 "NAME TEXT , Tele TEXT)");
         db.execSQL("create table  article (ID INTEGER PRIMARY KEY AUTOINCREMENT , " +
-                "ID_CLIENT INTEGER  , NAME TEXT , CODE_BARE TEXT , PAYEE INTEGER , PRIX REAL)");
+                "ID_CLIENT INTEGER  , NAME TEXT , CODE_BARE TEXT ,codeBareFormat TEXT, PAYEE INTEGER , PRIX REAL)");
+        db.execSQL("create table  images (ID INTEGER PRIMARY KEY AUTOINCREMENT , ID_ARTICLE INTEGER," +
+                "filename TEXT )");
     }
 
     @Override
@@ -65,5 +69,34 @@ public class AjouterClient extends SQLiteOpenHelper {
         return res;
     }
 
+    public boolean AjouterSac(int id_client, String name, String code_bare,String codeBareFormat, int payee, double prix , ArrayList<String> images){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("id_client",id_client);
+        contentValues.put("name",name);
+        contentValues.put("code_bare",code_bare);
+        contentValues.put("codeBareFormat",codeBareFormat);
+        contentValues.put("payee",payee);
+        contentValues.put("prix",prix);
+
+
+
+        long result =  db.insert("article",null,contentValues);
+
+        for (int i = 0;i < images.size();i++){
+            ContentValues newContent = new ContentValues();
+
+            newContent.put("ID_ARTICLE",result);
+            newContent.put("filename",images.get(i));
+
+            db.insert("images",null,contentValues);
+        }
+        if(result == -1){
+            return false;
+        }else{
+            return true;
+        }
+    }
 
 }

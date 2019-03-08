@@ -43,7 +43,8 @@ public class ClientActivity extends AppCompatActivity {
 
         while (res.moveToNext()){
             sacs.add(new Sac(res.getInt(0),res.getInt(1), res.getString(2),
-                    res.getString(3), res.getInt(4),res.getDouble(5)));
+                    res.getString(3),res.getString(4), res.getInt(5),
+                    res.getDouble(6)));
         }
 
 

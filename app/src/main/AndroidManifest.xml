@@ -33,7 +33,8 @@
             android:name=".ClientActivity"
             android:label="Client"
             android:parentActivityName=".ListDesClients" />
-        <activity android:name=".getPictureActivity" />
+        <activity android:name=".getPictureActivity"
+            android:parentActivityName=".AjouterSac"/>
         <activity
             android:name=".SacActivity"
             android:label="Sac"

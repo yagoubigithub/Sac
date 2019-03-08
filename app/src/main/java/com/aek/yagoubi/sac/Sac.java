@@ -8,16 +8,26 @@ public class Sac {
     private int payee;
 
     private double prix;
+    private String codeBareFormat;
 
 
-    public Sac(int id, int id_client, String nom, String code_bare, int payee, double prix) {
+    public Sac(int id, int id_client, String nom, String code_bare, String codeBareFormat, int payee, double prix) {
         this.id = id;
         this.id_client = id_client;
         this.nom = nom;
         this.code_bare = code_bare;
         this.payee = payee;
 
+        this.codeBareFormat = codeBareFormat;
         this.prix = prix;
+    }
+
+    public String getCodeBareFormat() {
+        return codeBareFormat;
+    }
+
+    public void setCodeBareFormat(String codeBareFormat) {
+        this.codeBareFormat = codeBareFormat;
     }
 
     public String getNom() {
