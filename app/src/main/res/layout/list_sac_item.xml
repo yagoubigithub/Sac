@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+
+
+
+
+    >
+    <LinearLayout
+        android:id="@+id/mySacItemLinearLyout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:padding="2dp"
+        android:background="?android:attr/selectableItemBackground"
+
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_group_gray"
+            android:layout_marginRight="5dp"
+            android:background="#F2F2F2"
+
+            />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center_vertical">
+            <TextView
+                android:id="@+id/list_item_article_nom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Article"
+                android:textSize="24sp"
+                />
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Prix  : 50 $"
+
+                />
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Quantité : 2"
+
+                />
+            <TextView
+                android:id="@+id/list_item_article_prix"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Prix Totale : 100 $"
+                android:textSize="16sp"
+                android:layout_marginLeft="5dp"
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|left">
+
+            <android.support.design.widget.FloatingActionButton
+
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/list_item_delete_article_btn"
+                android:layout_width="wrap_content"
+                app:backgroundTint="@color/colorDanger"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_delete_white"
+                />
+
+            <CheckBox android:id="@+id/list_item_paye_Checkbox"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_height="wrap_content"
+                android:text="Payé"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>
