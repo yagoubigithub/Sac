@@ -8,13 +8,14 @@ import android.widget.LinearLayout;
 
 public class MainActivity extends AppCompatActivity {
 
-    LinearLayout btn_list_des_client,btn_ajouter_client;
+    LinearLayout btn_list_des_client,btn_ajouter_client,btn_list_des_articles;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         btn_list_des_client = (LinearLayout) findViewById(R.id.btn_list_des_clients);
         btn_ajouter_client = (LinearLayout) findViewById(R.id.btn_ajouter_client);
+        btn_list_des_articles = (LinearLayout) findViewById(R.id.btn_list_des_articles);
 
         btn_list_des_client.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -31,6 +32,18 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent  = new Intent(MainActivity.this,AjouterClientActivity.class);
                 startActivity(intent);
+
+
+            }
+        });
+
+        // List Articles
+        btn_list_des_articles.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent  = new Intent(MainActivity.this,ListDesArticles.class);
+                startActivity(intent);
+
 
             }
         });

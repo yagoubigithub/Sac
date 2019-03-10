@@ -28,10 +28,18 @@
                 android:text="Article"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 />
-
             <TextView
 
-                android:id="@+id/list_item_article_prix"
+                android:id="@+id/list_item_client_sacclient"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:text="Client Name"
+
+                />
+            <TextView
+
+                android:id="@+id/list_item_sacclient_prix"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Prix  : 50 $"
@@ -39,14 +47,14 @@
                 />
             <TextView
 
-                android:id="@+id/list_item_article_qte"
+                android:id="@+id/list_item_sacclient_qte"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Quantité : 2"
 
                 />
             <TextView
-                android:id="@+id/list_item_article_prix_total"
+                android:id="@+id/list_item_sacclient_prix_total"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Prix Totale : 100 $"
@@ -64,14 +72,14 @@
             <android.support.design.widget.FloatingActionButton
 
                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/list_item_delete_article_btn"
+                android:id="@+id/list_item_delete_sacclient_btn"
                 android:layout_width="wrap_content"
                 app:backgroundTint="@color/colorDanger"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_delete_white"
                 />
 
-            <CheckBox android:id="@+id/list_item_paye_Checkbox"
+            <CheckBox android:id="@+id/list_item_paye_Checkbox_sacclient"
                 android:layout_width="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_height="wrap_content"

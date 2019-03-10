@@ -1,9 +1,11 @@
 package com.aek.yagoubi.sac;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,9 +21,11 @@ import java.util.ArrayList;
 public class SacAdapter extends ArrayAdapter<Sac> {
 
     Context myContext;
-    public SacAdapter(Context context, ArrayList<Sac> sacs) {
+    Client client;
+    public SacAdapter(Context context, ArrayList<Sac> sacs,Client client) {
         super(context, 0,sacs);
         this.myContext = context;
+        this.client = client;
 
     }
 
@@ -39,10 +43,19 @@ public class SacAdapter extends ArrayAdapter<Sac> {
 
         TextView sac_nom = (TextView) listItemView.findViewById(R.id.list_item_article_nom);
         TextView sac_prix = (TextView) listItemView.findViewById(R.id.list_item_article_prix);
+        TextView sac_prix_total = (TextView) listItemView.findViewById(R.id.list_item_article_prix_total);
+        TextView list_item_article_qte = (TextView) listItemView.findViewById(R.id.list_item_article_qte);
 
         sac_nom.setText(sac.getNom());
 
-        sac_prix.setText(sac.getPrix() + " $");
+        int qte = sac.getQte();
+        Double prix = sac.getPrix();
+
+        list_item_article_qte.setText("Quantité : " + qte);
+
+
+        sac_prix.setText("Prix :"  + sac.getPrix() + " $");
+        sac_prix_total.setText("Prix Totale : " + (qte * prix) +  "$");
         CheckBox checkBox = (CheckBox) listItemView.findViewById(R.id.list_item_paye_Checkbox);
         checkBox.setChecked(sac.isPayee());
 
@@ -53,7 +66,11 @@ public class SacAdapter extends ArrayAdapter<Sac> {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(myContext,SacActivity.class);
-                myContext.startActivity(intent);
+                intent.putExtra("client",client);
+                intent.putExtra("sac",sac);
+               myContext.startActivity(intent);
+
+
             }
         });
         FloatingActionButton DeleteBtn = (FloatingActionButton)listItemView.findViewById(R.id.list_item_delete_article_btn);

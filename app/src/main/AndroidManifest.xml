@@ -33,12 +33,12 @@
             android:name=".ClientActivity"
             android:label="Client"
             android:parentActivityName=".ListDesClients" />
-        <activity android:name=".getPictureActivity"
-            android:parentActivityName=".AjouterSac"/>
+        <activity
+            android:name=".getPictureActivity"
+            android:parentActivityName=".AjouterSac" />
         <activity
             android:name=".SacActivity"
-            android:label="Sac"
-            android:parentActivityName=".ClientActivity" />
+            android:label="Sac" />
         <activity android:name=".QRCodeReaderActivity" />
 
         <meta-data
@@ -50,7 +50,8 @@
         <activity
             android:name=".AjouterClientActivity"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".AjouterSac"></activity>
+        <activity android:name=".AjouterSac" />
+        <activity android:name=".ListDesArticles"></activity>
     </application>
 
 </manifest>

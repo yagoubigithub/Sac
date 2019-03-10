@@ -9,25 +9,30 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class ClientAdapter extends ArrayAdapter<Client> {
-
+public class ClientAdapter extends ArrayAdapter<Client> implements Filterable {
     Context myContext;
+    ArrayList<Client> clients;
+    ArrayList<Client> clientsGlobal;
+
+
     public ClientAdapter(Context context, ArrayList<Client> clients) {
         super(context, 0,clients);
         this.myContext = context;
+        this.clients = clients;
+        this.clientsGlobal = clients;
 
     }
 
-
     @Override
     public View getView(int position,  View convertView,  ViewGroup parent) {
-
         View listItemView = convertView;
         if(listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(
@@ -94,6 +99,49 @@ public class ClientAdapter extends ArrayAdapter<Client> {
         return listItemView;
     }
 
-    public static class CameraPreview {
+
+
+
+   /*  ClientsFilter mClientsFilter;
+    @Override
+    public Filter getFilter() {
+        if (mClientsFilter == null)
+            mClientsFilter = new ClientsFilter();
+
+        return mClientsFilter;
     }
+
+    private class ClientsFilter  extends Filter {
+
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            FilterResults results = new FilterResults();
+
+            if (constraint == null || constraint.length() == 0) {
+                results.values =clientsGlobal;
+                results.count = clientsGlobal.size();
+            }else{
+
+                ArrayList<Client> filteredClients = new ArrayList<Client>();
+                for (Client c : clientsGlobal) {
+
+                    if (c.getNom().toUpperCase().contains( constraint.toString().toUpperCase() )) {
+                        Log.i("Filter",c.getNom());
+
+                        filteredClients.add(c);
+                    }
+                }
+                results.values = filteredClients;
+                results.count = filteredClients.size();
+            }
+
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            clients = (ArrayList<Client>) results.values;
+            notifyDataSetChanged();
+        }
+    }*/
 }

@@ -25,6 +25,7 @@
            />
 
        <EditText
+           android:id="@+id/edit_text_change_article_name"
            android:layout_width="match_parent"
            android:text="Article ..."
            android:layout_marginLeft="5dp"
@@ -56,6 +57,41 @@
             />
 
         <EditText
+            android:id="@+id/edit_text_change_article_prix"
+
+            android:layout_width="match_parent"
+            android:text="145"
+            android:layout_marginLeft="5dp"
+            android:layout_height="wrap_content"
+            android:textColor="#FFF"
+            android:background="#333"
+            android:padding="3dp"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+
+        android:orientation="horizontal"
+        android:layout_margin="5dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFF"
+            android:padding="5dp"
+            android:text="Modifier le Quntité :"
+
+            android:layout_gravity="left|center_vertical"
+            />
+
+        <EditText
+            android:id="@+id/edit_text_change_article_qte"
+
             android:layout_width="match_parent"
             android:text="145"
             android:layout_marginLeft="5dp"
@@ -76,6 +112,8 @@
         >
 
         <TextView
+            android:id="@+id/text_view_change_article_codebare"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#FFF"

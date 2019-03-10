@@ -22,7 +22,7 @@ public class AjouterClient extends SQLiteOpenHelper {
         db.execSQL("create table " + TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT , " +
                 "NAME TEXT , Tele TEXT)");
         db.execSQL("create table  article (ID INTEGER PRIMARY KEY AUTOINCREMENT , " +
-                "ID_CLIENT INTEGER  , NAME TEXT , CODE_BARE TEXT ,codeBareFormat TEXT, PAYEE INTEGER , PRIX REAL)");
+                "ID_CLIENT INTEGER  , NAME TEXT , CODE_BARE TEXT ,codeBareFormat TEXT, PAYEE INTEGER , PRIX REAL, qte INTEGER)");
         db.execSQL("create table  images (ID INTEGER PRIMARY KEY AUTOINCREMENT , ID_ARTICLE INTEGER," +
                 "filename TEXT )");
     }
@@ -63,13 +63,13 @@ public class AjouterClient extends SQLiteOpenHelper {
         return res;
     }
 
-    public Cursor getAllArticles(){
+    public Cursor getAllArticlesById(int client_id){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res  = db.rawQuery("SELECT * FROM article",null);
+        Cursor res  = db.rawQuery("SELECT * FROM article WHERE ID_CLIENT=" + client_id,null);
         return res;
     }
 
-    public boolean AjouterSac(int id_client, String name, String code_bare,String codeBareFormat, int payee, double prix , ArrayList<String> images){
+    public boolean AjouterSac(int id_client, String name, String code_bare,String codeBareFormat, int payee, double prix,double qte , ArrayList<String> images){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
@@ -79,6 +79,7 @@ public class AjouterClient extends SQLiteOpenHelper {
         contentValues.put("codeBareFormat",codeBareFormat);
         contentValues.put("payee",payee);
         contentValues.put("prix",prix);
+        contentValues.put("qte",qte);
 
 
 
@@ -97,6 +98,16 @@ public class AjouterClient extends SQLiteOpenHelper {
         }else{
             return true;
         }
+    }
+
+    public Cursor getAllArticlesAndClients(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res  = db.rawQuery("SELECT \n" +
+                "article.ID id_article, article.ID_CLIENT ID_CLIENT,\n" +
+                " article.NAME name_article,article.CODE_BARE, article.codeBareFormat,\n" +
+                " article.PAYEE,article.PRIX,article.qte,dd.NAME name_client,dd.Tele \n" +
+                " FROM article  JOIN dd  ON article.ID_CLIENT = dd.ID \n",null);
+        return res;
     }
 
 }

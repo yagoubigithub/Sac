@@ -4,8 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="500dp"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     tools:context=".ClientActivity"
     android:background="#111"
+
     android:orientation="vertical">
 
     <LinearLayout
@@ -115,7 +118,7 @@
         android:dividerHeight="1sp"
         android:background="#F2F2F2"
 
-        android:layout_height="400dp">
+        android:layout_height="match_parent">
 
     </ListView>
 

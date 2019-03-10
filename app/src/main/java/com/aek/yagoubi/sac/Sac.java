@@ -1,6 +1,8 @@
 package com.aek.yagoubi.sac;
 
-public class Sac {
+import java.io.Serializable;
+
+public class Sac  implements Serializable {
   private  int id;
    private int id_client;
     private String nom;
@@ -8,18 +10,28 @@ public class Sac {
     private int payee;
 
     private double prix;
+    private int qte;
     private String codeBareFormat;
 
 
-    public Sac(int id, int id_client, String nom, String code_bare, String codeBareFormat, int payee, double prix) {
+
+    public Sac(int id, int id_client, String nom, String code_bare, String codeBareFormat, int payee, double prix,int qte) {
         this.id = id;
         this.id_client = id_client;
         this.nom = nom;
         this.code_bare = code_bare;
         this.payee = payee;
-
+      this.qte = qte;
         this.codeBareFormat = codeBareFormat;
         this.prix = prix;
+    }
+
+    public void setQte(int qte) {
+        this.qte = qte;
+    }
+
+    public int getQte() {
+        return qte;
     }
 
     public String getCodeBareFormat() {
@@ -85,4 +97,7 @@ public class Sac {
     }
 
 
+    public boolean CodeBareExist(){
+        return !this.code_bare.equals("");
+    }
 }
