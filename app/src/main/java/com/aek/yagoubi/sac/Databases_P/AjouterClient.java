@@ -110,4 +110,32 @@ public class AjouterClient extends SQLiteOpenHelper {
         return res;
     }
 
+    public boolean deleteArticleByHisId(int id){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete("article", "id=?",new String[]{String.valueOf(id)}) > 0
+                || db.delete("images","ID_ARTICLE=?",new String[]{String.valueOf(id)}) > 0;
+
+
+    }
+    public boolean deleteClientByHisId(int id){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(TABLE_NAME, "id=?",new String[]{String.valueOf(id)}) > 0
+               || db.delete("article","ID_CLIENT=?",new String[]{String.valueOf(id)}) > 0;
+
+
+    }
+
+    public boolean updateClientInformation(int id, String name, String Tele){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put("name", name);
+        cv.put("Tele", Tele);
+        return db.update(TABLE_NAME, cv, "id="+id, null) > 0;
+
+
+    }
 }

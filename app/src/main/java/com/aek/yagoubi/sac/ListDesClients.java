@@ -26,69 +26,87 @@ public class ListDesClients extends AppCompatActivity {
     Cursor res;
     ClientAdapter adapter;
     EditText serchInput;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_clients);
-        clients =  new ArrayList<>();
-        ajouterClient =new AjouterClient(this);
-       res = ajouterClient.getAllClients();
+        clients = new ArrayList<>();
+        ajouterClient = new AjouterClient(this);
+        res = ajouterClient.getAllClients();
         if (res.getCount() == 0) {
             //Clients list empty
-           Toast.makeText(this,"La liste et vide",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "La liste et vide", Toast.LENGTH_SHORT).show();
             return;
         }
         while (res.moveToNext()) {
             clients.add(new Client(res.getInt(0), res.getString(1), res.getString(2)));
         }
-         adapter = new ClientAdapter(this,clients);
+        adapter = new ClientAdapter(this, clients);
         listView = (ListView) findViewById(R.id.list_view_clients);
 
 
         listView.setAdapter(adapter);
 
 
-
         //Serch
-      serchInput = (EditText)findViewById(R.id.edit_text_serch_client_by_name);
+        serchInput = (EditText) findViewById(R.id.edit_text_serch_client_by_name);
 
 
-serchInput.addTextChangedListener(new TextWatcher() {
-    @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        serchInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-    }
-
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-        ArrayList<Client> newArraySearch = new ArrayList<>();
-
-        if(s == null || s.length() == 0){
-            adapter = new ClientAdapter(ListDesClients.this,clients);
-        }else{
-            for (Client c : clients){
-                if (c.getNom().toUpperCase().contains( s.toString().toUpperCase() )) {
-                    Log.i("Filter",c.getNom());
-
-                    newArraySearch.add(c);
-                }
             }
-            adapter = new ClientAdapter(ListDesClients.this,newArraySearch);
-        }
-        adapter.notifyDataSetChanged();
-        listView.setAdapter(adapter);
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                ArrayList<Client> newArraySearch = new ArrayList<>();
+
+                if (s == null || s.length() == 0) {
+                    adapter = new ClientAdapter(ListDesClients.this, clients);
+                } else {
+                    for (Client c : clients) {
+                        if (c.getNom().toUpperCase().contains(s.toString().toUpperCase())) {
+                            Log.i("Filter", c.getNom());
+
+                            newArraySearch.add(c);
+                        }
+                    }
+                    adapter = new ClientAdapter(ListDesClients.this, newArraySearch);
+                }
+                adapter.notifyDataSetChanged();
+                listView.setAdapter(adapter);
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
 
     }
 
     @Override
-    public void afterTextChanged(Editable s) {
+    protected void onResume() {
 
+
+        clients.clear();
+        ajouterClient = new AjouterClient(this);
+        Cursor res = ajouterClient.getAllClients();
+
+        while (res.moveToNext()) {
+            clients.add(new Client(res.getInt(0), res.getString(1), res.getString(2)));
+        }
+
+        listView = (ListView) findViewById(R.id.list_view_clients);
+
+        adapter  = new ClientAdapter(this, clients);
+
+        listView.setAdapter(adapter);
+        super.onResume();
     }
-});
-
-
-    }
-
-
 }

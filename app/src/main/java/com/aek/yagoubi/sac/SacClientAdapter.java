@@ -1,6 +1,9 @@
 package com.aek.yagoubi.sac;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
@@ -14,10 +17,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.aek.yagoubi.sac.Databases_P.AjouterClient;
+
 import java.util.ArrayList;
 
 public class SacClientAdapter   extends ArrayAdapter<SacClient>  {
     Context myContext;
+
+    AjouterClient database;
 
 
 
@@ -25,6 +32,7 @@ public class SacClientAdapter   extends ArrayAdapter<SacClient>  {
     public SacClientAdapter(Context context, ArrayList<SacClient> sacClients) {
         super(context, 0,sacClients);
         this.myContext = context;
+        database = new AjouterClient(context);
 
 
 
@@ -53,8 +61,20 @@ public class SacClientAdapter   extends ArrayAdapter<SacClient>  {
         list_item_sacclient_prix_total.setText("Prix Totale : " + (sacClient.getSac().getPrix() * sacClient.getSac().getQte()));
         list_item_sacclient_qte.setText("Quantité : " + sacClient.getSac().getQte());
 
+        LinearLayout mySacClientItemLinearLyout = (LinearLayout)listItemView.findViewById(R.id.mySacClientItemLinearLyout);
 
 
+        mySacClientItemLinearLyout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(myContext,SacActivity.class);
+                intent.putExtra("client",sacClient.getClient());
+                intent.putExtra("sac",sacClient.getSac());
+                myContext.startActivity(intent);
+
+
+            }
+        });
         return listItemView;
     }
 

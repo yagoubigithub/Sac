@@ -32,7 +32,6 @@ public class ListDesArticles extends AppCompatActivity {
         res = database.getAllArticlesAndClients();
 
 
-
         while (res.moveToNext()) {
             sacs.add(new SacClient(new Sac(res.getInt(0), res.getInt(1), res.getString(2),
                     res.getString(3), res.getString(4), res.getInt(5),
@@ -43,10 +42,10 @@ public class ListDesArticles extends AppCompatActivity {
 
 
         }
-        adapter  = new SacClientAdapter(this, sacs);
+        adapter = new SacClientAdapter(this, sacs);
 
 
-         listView = (ListView) findViewById(R.id.list_view_articles_in_ListDesArticlesActivity);
+        listView = (ListView) findViewById(R.id.list_view_articles_in_ListDesArticlesActivity);
 
 
         listView.setAdapter(adapter);
@@ -64,17 +63,17 @@ public class ListDesArticles extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 ArrayList<SacClient> newArraySearch = new ArrayList<>();
 
-                if(s == null || s.length() == 0){
-                    adapter = new SacClientAdapter(ListDesArticles.this,sacs);
-                }else{
-                    for (SacClient c : sacs){
-                        if (c.getSac().getNom().toUpperCase().contains( s.toString().toUpperCase() )) {
-                            Log.i("Filter",c.getSac().getNom());
+                if (s == null || s.length() == 0) {
+                    adapter = new SacClientAdapter(ListDesArticles.this, sacs);
+                } else {
+                    for (SacClient c : sacs) {
+                        if (c.getSac().getNom().toUpperCase().contains(s.toString().toUpperCase())) {
+                            Log.i("Filter", c.getSac().getNom());
 
                             newArraySearch.add(c);
                         }
                     }
-                    adapter = new SacClientAdapter(ListDesArticles.this,newArraySearch);
+                    adapter = new SacClientAdapter(ListDesArticles.this, newArraySearch);
                 }
                 adapter.notifyDataSetChanged();
                 listView.setAdapter(adapter);
@@ -87,9 +86,31 @@ public class ListDesArticles extends AppCompatActivity {
         });
 
 
+    }
 
 
+    @Override
+    protected void onResume() {
+        sacs = new ArrayList<>();
+        res = database.getAllArticlesAndClients();
 
 
+        while (res.moveToNext()) {
+            sacs.add(new SacClient(new Sac(res.getInt(0), res.getInt(1), res.getString(2),
+                    res.getString(3), res.getString(4), res.getInt(5),
+                    res.getDouble(6), res.getInt(7)),
+                    new Client(res.getInt(1),
+                            res.getString(8), res.getString(9)))
+            );
+
+
+        }
+        adapter = new SacClientAdapter(this, sacs);
+        adapter.notifyDataSetChanged();
+
+
+        listView.setAdapter(adapter);
+
+        super.onResume();
     }
 }

@@ -73,17 +73,7 @@ public class SacAdapter extends ArrayAdapter<Sac> {
 
             }
         });
-        FloatingActionButton DeleteBtn = (FloatingActionButton)listItemView.findViewById(R.id.list_item_delete_article_btn);
-        DeleteBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Delete Sac
 
-                Toast.makeText(myContext, "Delete",Toast.LENGTH_LONG).show();
-
-
-            }
-        });
 
 
 

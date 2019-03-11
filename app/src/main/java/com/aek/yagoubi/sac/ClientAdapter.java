@@ -1,5 +1,6 @@
 package com.aek.yagoubi.sac;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -31,6 +32,7 @@ public class ClientAdapter extends ArrayAdapter<Client> implements Filterable {
 
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     public View getView(int position,  View convertView,  ViewGroup parent) {
         View listItemView = convertView;
@@ -57,6 +59,12 @@ public class ClientAdapter extends ArrayAdapter<Client> implements Filterable {
         });
 
         FloatingActionButton callBtn = (FloatingActionButton)listItemView.findViewById(R.id.list_item_btn_call);
+
+        if(client.getNumeroTele().equals("")){
+            callBtn.setVisibility(View.GONE);
+        }else{
+            callBtn.setVisibility(View.VISIBLE);
+        }
         callBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,20 +86,7 @@ public class ClientAdapter extends ArrayAdapter<Client> implements Filterable {
             }
         });
 
-        FloatingActionButton deleteBtn = (FloatingActionButton)listItemView.findViewById(R.id.list_item_delete_client_btn);
-        deleteBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Delete Client.
 
-
-
-                Toast.makeText(myContext, "Delete Client :" + client.getId(),Toast.LENGTH_LONG).show();
-
-
-
-            }
-        });
 
 
         nomClient.setText(client.getNom());
@@ -102,46 +97,5 @@ public class ClientAdapter extends ArrayAdapter<Client> implements Filterable {
 
 
 
-   /*  ClientsFilter mClientsFilter;
-    @Override
-    public Filter getFilter() {
-        if (mClientsFilter == null)
-            mClientsFilter = new ClientsFilter();
 
-        return mClientsFilter;
-    }
-
-    private class ClientsFilter  extends Filter {
-
-        @Override
-        protected FilterResults performFiltering(CharSequence constraint) {
-            FilterResults results = new FilterResults();
-
-            if (constraint == null || constraint.length() == 0) {
-                results.values =clientsGlobal;
-                results.count = clientsGlobal.size();
-            }else{
-
-                ArrayList<Client> filteredClients = new ArrayList<Client>();
-                for (Client c : clientsGlobal) {
-
-                    if (c.getNom().toUpperCase().contains( constraint.toString().toUpperCase() )) {
-                        Log.i("Filter",c.getNom());
-
-                        filteredClients.add(c);
-                    }
-                }
-                results.values = filteredClients;
-                results.count = filteredClients.size();
-            }
-
-            return results;
-        }
-
-        @Override
-        protected void publishResults(CharSequence constraint, FilterResults results) {
-            clients = (ArrayList<Client>) results.values;
-            notifyDataSetChanged();
-        }
-    }*/
 }

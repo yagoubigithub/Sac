@@ -6,7 +6,7 @@
 
     >
     <LinearLayout
-        android:id="@+id/mySacItemLinearLyout"
+        android:id="@+id/mySacClientItemLinearLyout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clickable="true"
@@ -69,17 +69,8 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:gravity="center_vertical|left">
+            android:gravity="center_vertical">
 
-            <android.support.design.widget.FloatingActionButton
-
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/list_item_delete_sacclient_btn"
-                android:layout_width="wrap_content"
-                app:backgroundTint="@color/colorDanger"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_delete_white"
-                />
 
             <CheckBox android:id="@+id/list_item_paye_Checkbox_sacclient"
                 android:layout_width="wrap_content"

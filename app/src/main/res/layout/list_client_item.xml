@@ -42,16 +42,10 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center|center_vertical">
+            android:layout_marginRight="8dp"
+            android:gravity="right|center_vertical">
 
-            <android.support.design.widget.FloatingActionButton
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/list_item_delete_client_btn"
-                android:layout_width="wrap_content"
-                app:backgroundTint="@color/colorDanger"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_delete_white"
-                />
+
 
 <android.support.design.widget.FloatingActionButton
     xmlns:app="http://schemas.android.com/apk/res-auto"

@@ -1,6 +1,9 @@
 package com.aek.yagoubi.sac;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -22,17 +25,20 @@ import java.util.List;
 
 public class ClientActivity extends AppCompatActivity {
     Client client;
+    AjouterClient database;
+
+    @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client);
         ArrayList<Sac> sacs = new ArrayList<>();
         Intent intent = getIntent();
-       client = (Client) intent.getSerializableExtra("client");
+        client = (Client) intent.getSerializableExtra("client");
 
 
-        EditText editText_change_name = (EditText) findViewById(R.id.edit_text_modifier_le_nom_client);
-        EditText editText_change_tele = (EditText) findViewById(R.id.edit_text_modifier_le_tele_client);
+        final EditText editText_change_name = (EditText) findViewById(R.id.edit_text_modifier_le_nom_client);
+        final EditText editText_change_tele = (EditText) findViewById(R.id.edit_text_modifier_le_tele_client);
 
 
         if (client != null) {
@@ -40,7 +46,7 @@ public class ClientActivity extends AppCompatActivity {
             editText_change_name.setText(client.getNom());
             editText_change_tele.setText(client.getNumeroTele());
 
-            AjouterClient database = new AjouterClient(this);
+            database = new AjouterClient(this);
 
             Cursor res = database.getAllArticlesById(client.getId());
 
@@ -65,7 +71,30 @@ public class ClientActivity extends AppCompatActivity {
             delete_client_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    finish();
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(ClientActivity.this);
+
+                    builder.setMessage("Suprimer :" + client.getNom())
+                            .setTitle("Suprimer");
+                    builder.setPositiveButton("OUI", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            boolean b = database.deleteClientByHisId(client.getId());
+                            if (b)
+                                finish();
+                            else
+                                Toast.makeText(ClientActivity.this, "Error", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                    builder.setNegativeButton("NON", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+
                 }
             });
 
@@ -73,6 +102,12 @@ public class ClientActivity extends AppCompatActivity {
             //call client
 
             FloatingActionButton call_client_btn = (FloatingActionButton) findViewById(R.id.call_client_btn);
+
+            if (client.getNumeroTele().equals("")) {
+                call_client_btn.setVisibility(View.GONE);
+            } else {
+                call_client_btn.setVisibility(View.VISIBLE);
+            }
 
             call_client_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -106,9 +141,40 @@ public class ClientActivity extends AppCompatActivity {
             });
 
 
+            //update client
+            FloatingActionButton update_client_information = (FloatingActionButton) findViewById(R.id.update_client_information);
+
+            update_client_information.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String name = editText_change_name.getText().toString();
+                    String Tele = editText_change_tele.getText().toString();
+                    int id = client.getId();
+                    boolean b = database.updateClientInformation(id, name, Tele);
+
+                    if (b) {
+                        //refresh
+                        if (android.os.Build.VERSION.SDK_INT >= 11) {
+
+                            recreate();
+
+                        } else {
+                            finish();
+                        }
+
+
+
+                    } else {
+                        Toast.makeText(ClientActivity.this, "Error", Toast.LENGTH_LONG).show();
+                    }
+
+                }
+            });
+
 
         }
     }
+
 
     @Override
     protected void onResume() {

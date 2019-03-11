@@ -123,6 +123,7 @@
 
        <Button
 
+           android:id="@+id/change_codebare_btn"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:background="#50D30D"
@@ -162,6 +163,7 @@
         android:orientation="horizontal"
         android:gravity="center">
         <android.support.design.widget.FloatingActionButton
+            android:id="@+id/delete_article_btn"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="wrap_content"
             app:backgroundTint="@color/colorDanger"
@@ -172,6 +174,7 @@
 
         <android.support.design.widget.FloatingActionButton
             xmlns:app="http://schemas.android.com/apk/res-auto"
+          android:id="@+id/save_the_change_sac"
             android:layout_margin="15dp"
             android:layout_width="wrap_content"
             app:backgroundTint="@color/design_default_color_primary"
