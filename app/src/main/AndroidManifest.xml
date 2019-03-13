@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="portrait"
 
             >
             <intent-filter>
@@ -31,23 +31,23 @@
         <activity
             android:name=".ListDesClients"
             android:label="Liste Des Clients"
-            android:screenOrientation="landscape"
+            android:screenOrientation="portrait"
 
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".ClientActivity"
             android:label="Client"
-            android:screenOrientation="landscape"
+            android:screenOrientation="portrait"
 
             android:parentActivityName=".ListDesClients" />
         <activity
             android:name=".getPictureActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="portrait"
 
-            android:parentActivityName=".AjouterSac" />
+            />
         <activity
             android:name=".SacActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="portrait"
 
             android:label="Sac" />
         <activity android:name=".QRCodeReaderActivity" />
@@ -57,24 +57,24 @@
             android:value="barcode" />
 
         <activity android:name=".GalleryActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="portrait"
             />
         <activity android:name=".FullImageGalleryActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="portrait"
             />
         <activity
             android:name=".AjouterClientActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="portrait"
 
             android:parentActivityName=".MainActivity" />
         <activity android:name=".AjouterSac"
-            android:screenOrientation="landscape"
+            android:screenOrientation="portrait"
             />
         <activity android:name=".ListDesArticles"
-            android:screenOrientation="landscape"
+            android:screenOrientation="portrait"
             />
         <activity android:name=".AjouterArticles"
-            android:screenOrientation="landscape"
+            android:screenOrientation="portrait"
             ></activity>
     </application>
 

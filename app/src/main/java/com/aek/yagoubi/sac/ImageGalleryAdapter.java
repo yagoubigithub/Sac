@@ -1,51 +1,55 @@
 package com.aek.yagoubi.sac;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Environment;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.GridLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
-public class ImageGalleryAdapter extends BaseAdapter {
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+
+public class ImageGalleryAdapter extends ArrayAdapter<String> {
     private Context context;
 
-    public Integer[] images = {
-            R.drawable.ic_add_shopping_cart,
-            R.drawable.ic_call_white,
-            R.drawable.ic_delete_white,
-            R.drawable.ic_launcher_background,
-            R.drawable.ic_launcher_foreground,
-            R.drawable.ic_person_add_gray
-    };
 
-    public ImageGalleryAdapter(Context context) {
+    ArrayList<String> fileNames;
+
+    public ImageGalleryAdapter(Context context, ArrayList<String> fileNames) {
+        super(context, 0, fileNames);
         this.context = context;
+        this.fileNames = fileNames;
     }
-
-    @Override
-    public int getCount() {
-        return images.length;
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return images[position];
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return 0;
-    }
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ImageView imageView = new ImageView(context);
-        imageView.setImageResource(images[position]);
-        imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-        imageView.setLayoutParams(new GridView.LayoutParams(240,240));
 
-        return imageView;
+        View listItemView = convertView;
+        if(listItemView == null) {
+            listItemView = LayoutInflater.from(getContext()).inflate(
+                    R.layout.image_item_gallerie, parent, false);
+        }
+        String imgPath = getItem(position);
+        ImageView imageView = (ImageView)listItemView.findViewById(R.id.image_gallerie);
+        try {
+            File f = new File(Environment.getExternalStorageDirectory()
+                    + "/dirr",imgPath);
+            Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
+            imageView.setImageBitmap(b);
+        } catch (FileNotFoundException e) {
+            Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
+
+        return listItemView;
     }
 }

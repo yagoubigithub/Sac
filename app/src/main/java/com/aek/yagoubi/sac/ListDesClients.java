@@ -1,6 +1,8 @@
 package com.aek.yagoubi.sac;
 
+import android.content.Intent;
 import android.database.Cursor;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,6 +28,7 @@ public class ListDesClients extends AppCompatActivity {
     Cursor res;
     ClientAdapter adapter;
     EditText serchInput;
+    FloatingActionButton showAjouterClientBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +81,6 @@ public class ListDesClients extends AppCompatActivity {
                 }
                 adapter.notifyDataSetChanged();
                 listView.setAdapter(adapter);
-
             }
 
             @Override
@@ -86,14 +88,18 @@ public class ListDesClients extends AppCompatActivity {
 
             }
         });
+        showAjouterClientBtn = (FloatingActionButton) findViewById(R.id.showAjouterClientBtn) ;
 
-
+        showAjouterClientBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ListDesClients.this, AjouterClientActivity.class);
+                startActivity(intent);
+            }
+        });
     }
-
     @Override
     protected void onResume() {
-
-
         clients.clear();
         ajouterClient = new AjouterClient(this);
         Cursor res = ajouterClient.getAllClients();

@@ -1,11 +1,14 @@
 package com.aek.yagoubi.sac;
 
+import android.content.Intent;
 import android.database.Cursor;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -21,6 +24,7 @@ public class ListDesArticles extends AppCompatActivity {
     ArrayList<SacClient> sacs;
     SacClientAdapter adapter;
     ListView listView;
+    FloatingActionButton showAjouterArticleBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +86,15 @@ public class ListDesArticles extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
 
+            }
+        });
+
+        showAjouterArticleBtn = (FloatingActionButton) findViewById(R.id.showAjouterArticleBtn);
+        showAjouterArticleBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ListDesArticles.this, AjouterArticles.class);
+                startActivity(intent);
             }
         });
 

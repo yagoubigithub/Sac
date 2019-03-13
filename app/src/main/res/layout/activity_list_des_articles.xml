@@ -1,29 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="4dp"
-    tools:context=".ListDesArticles">
+    android:background="#FFF">
 
-    <EditText
-        android:id="@+id/serch_input_list_des_articles"
+    <LinearLayout
+
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+
+        tools:context=".ListDesArticles">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@color/colorPrimaryDark"
+            android:paddingTop="15dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:layout_marginBottom="25dp">
+            <EditText
+                android:id="@+id/serch_input_list_des_articles"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFF"
+                android:padding="4dp"
+                android:hint="Nom de la Article" />
+        </LinearLayout>
+
+
+
+        <ListView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/list_view_articles_in_ListDesArticlesActivity"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFF"
+            android:divider="@android:color/black"
+            android:dividerHeight="1sp" />
+
+
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/showAjouterArticleBtn"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Nom de la Article"/>
-
-    <ListView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:id="@+id/list_view_articles_in_ListDesArticlesActivity"
-        android:divider="@android:color/black"
-        android:dividerHeight="1sp"
-        android:background="#F2F2F2"
-        android:layout_height="match_parent" />
+        android:layout_gravity="top|right"
+        android:src="@drawable/ic_add_white"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="55dp"
+        />
 
 
-
-
-</LinearLayout>
+</FrameLayout>

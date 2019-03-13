@@ -32,7 +32,7 @@ public class getPictureActivity extends AppCompatActivity {
     Camera camera;
     FrameLayout frameLayout;
     ShowCamera showCamera;
-    Button CaptureBtn;
+    Button CaptureBtn,galerieBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +60,7 @@ public class getPictureActivity extends AppCompatActivity {
         frameLayout.addView(showCamera);
 
         CaptureBtn = (Button) findViewById(R.id.CaptureBtn);
+        galerieBtn = (Button) findViewById(R.id.galerieBtn);
 
         CaptureBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +68,15 @@ public class getPictureActivity extends AppCompatActivity {
                 if (camera != null) {
                     camera.takePicture(null, null, mPictureCalback);
                 }
+            }
+        });
+
+        galerieBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent  = new Intent(getPictureActivity.this, GalleryActivity.class);
+                intent.putExtra("fileNames", fileNames);
+                startActivity(intent);
             }
         });
 
