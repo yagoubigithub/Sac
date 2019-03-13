@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AjouterArticles"
+    android:orientation="vertical"
+    android:background="#101">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_margin="5dp"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFF"
+            android:text="le Nom de l'article :"
+            />
+
+        <EditText
+            android:id="@+id/edit_text_change_article_name"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_height="wrap_content"
+            android:textColor="#FFF"
+            android:background="#333"
+            android:padding="3dp"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+
+        android:orientation="horizontal"
+        android:layout_margin="5dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFF"
+            android:padding="5dp"
+            android:text="le Prix de l'article:"
+
+            android:layout_gravity="left|center_vertical"
+            />
+
+        <EditText
+            android:id="@+id/edit_text_change_article_prix"
+
+            android:layout_width="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_height="wrap_content"
+            android:textColor="#FFF"
+            android:background="#333"
+            android:padding="3dp"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+
+        android:orientation="horizontal"
+        android:layout_margin="5dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFF"
+            android:padding="5dp"
+            android:text="Quntité                   :"
+
+            android:layout_gravity="left|center_vertical"
+            />
+
+        <EditText
+            android:id="@+id/edit_text_change_article_qte"
+
+            android:layout_width="match_parent"
+            android:text="1"
+            android:layout_marginLeft="5dp"
+            android:layout_height="wrap_content"
+            android:textColor="#FFF"
+            android:background="#333"
+            android:padding="3dp"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+
+        android:orientation="horizontal"
+        android:layout_margin="5dp"
+        >
+
+        <TextView
+            android:id="@+id/text_view_change_article_codebare"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFF"
+            android:text=""
+            android:layout_gravity="left|center_vertical"
+            />
+
+        <Button
+
+            android:id="@+id/change_codebare_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#50D30D"
+            android:padding="10dp"
+            android:textColor="#FFF"
+            android:layout_marginLeft="15dp"
+            android:layout_gravity="right|center_vertical"
+            android:text="Code Bare"
+            android:textAllCaps="false"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+
+        android:orientation="horizontal"
+        android:layout_margin="5dp"
+        >
+
+
+        <ImageButton
+
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="15dp"
+            android:background="@color/colorPrimaryDark"
+            android:src="@drawable/ic_local_see_white"
+            android:id="@+id/ajouter_picture_btn"
+
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="5dp"
+        >
+        <TextView
+
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFF"
+            android:text="Nom de Client"
+            android:layout_gravity="left|center_vertical"
+            />
+
+        <AutoCompleteTextView
+            android:layout_margin="8dp"
+            android:id="@+id/edit_text_client_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#FFF"
+            android:background="#333"
+            android:padding="3dp"
+            android:hint="Nome de Client"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+
+        android:orientation="horizontal"
+        android:layout_margin="5dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFF"
+            android:padding="5dp"
+            android:text="Numero  :      "
+
+            android:layout_gravity="left|center_vertical"
+            />
+
+        <EditText
+
+
+            android:layout_width="match_parent"
+            android:hint="0698221144"
+            android:layout_marginLeft="5dp"
+            android:layout_height="wrap_content"
+            android:textColor="#FFF"
+            android:background="#333"
+            android:padding="3dp"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnAjouterArticle"
+        android:layout_margin="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ajouter"
+        android:textAllCaps="false"
+
+        android:background="@color/design_default_color_primary"
+        android:textColor="#FFF"/>
+
+
+
+
+</LinearLayout>

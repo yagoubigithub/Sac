@@ -66,17 +66,18 @@ public class AjouterSac extends AppCompatActivity {
                 }
                 try
                 {
-                    Double.parseDouble(qte);
-                    Double.parseDouble(prix);
+                    Integer.parseInt(qte);
+                    Float.parseFloat(prix);
                 }
                 catch(NumberFormatException e)
                 {
-                    //not a double
+
+                    //not a Float
                     Toast.makeText(AjouterSac.this,"Le quantité et le prix doit être un nombre svp",Toast.LENGTH_LONG).show();
                     return;
                 }
 
-               boolean isSave =  database.AjouterSac(id_client,nom,sContent,sFormat,0,Double.parseDouble(prix),Double.parseDouble(qte),fileNames);
+               boolean isSave =  database.AjouterSac(id_client,nom,sContent,sFormat,0,Float.parseFloat(prix), Integer.parseInt(qte),fileNames);
 
                 if(isSave){
                     Toast.makeText(AjouterSac.this,"Article enregistré avec succès",Toast.LENGTH_LONG).show();

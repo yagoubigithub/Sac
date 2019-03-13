@@ -12,9 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.aek.yagoubi.sac.Databases_P.AjouterClient;
 
 import java.util.ArrayList;
 
@@ -22,10 +25,12 @@ public class SacAdapter extends ArrayAdapter<Sac> {
 
     Context myContext;
     Client client;
+    AjouterClient database;
     public SacAdapter(Context context, ArrayList<Sac> sacs,Client client) {
         super(context, 0,sacs);
         this.myContext = context;
         this.client = client;
+        database = new AjouterClient(context);
 
     }
 
@@ -49,16 +54,38 @@ public class SacAdapter extends ArrayAdapter<Sac> {
         sac_nom.setText(sac.getNom());
 
         int qte = sac.getQte();
-        Double prix = sac.getPrix();
+        Float prix = sac.getPrix();
 
         list_item_article_qte.setText("Quantité : " + qte);
 
 
         sac_prix.setText("Prix :"  + sac.getPrix() + " $");
         sac_prix_total.setText("Prix Totale : " + (qte * prix) +  "$");
-        CheckBox checkBox = (CheckBox) listItemView.findViewById(R.id.list_item_paye_Checkbox);
+        final CheckBox checkBox = (CheckBox) listItemView.findViewById(R.id.list_item_paye_Checkbox);
         checkBox.setChecked(sac.isPayee());
 
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    //
+                  boolean b =  database.updatePyee(sac.getId(),1);
+                   if(!b){
+                       checkBox.setChecked(false);
+                       Toast.makeText(myContext, "Error",Toast.LENGTH_LONG).show();
+                       ((Activity) myContext).finish();
+                   }
+                }else{
+                    //
+                 boolean b =   database.updatePyee(sac.getId(),0);
+                    if(!b){
+                        checkBox.setChecked(true);
+                        Toast.makeText(myContext, "Error",Toast.LENGTH_LONG).show();
+                        ((Activity) myContext).finish();
+                    }
+                }
+            }
+        });
         LinearLayout mySacItemLinearLyout = (LinearLayout)listItemView.findViewById(R.id.mySacItemLinearLyout);
 
 

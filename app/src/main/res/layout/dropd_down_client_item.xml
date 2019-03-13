@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:orientation="vertical"
+    android:padding="5dp"
+    style="?android:attr/dropDownItemStyle"
+    >
+    <TextView
+        android:id="@+id/name_client_dropd_down"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Name Name Name"
+
+        android:textAppearance="?android:attr/textAppearanceLargePopupMenu"
+        />
+
+    <TextView
+        android:id="@+id/tele_cllient_drop_down"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="002255557877"/>
+
+</LinearLayout>

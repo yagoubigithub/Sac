@@ -9,13 +9,13 @@ public class Sac  implements Serializable {
     private String code_bare;
     private int payee;
 
-    private double prix;
+    private Float prix;
     private int qte;
     private String codeBareFormat;
 
 
 
-    public Sac(int id, int id_client, String nom, String code_bare, String codeBareFormat, int payee, double prix,int qte) {
+    public Sac(int id, int id_client, String nom, String code_bare, String codeBareFormat, int payee, Float prix,int qte) {
         this.id = id;
         this.id_client = id_client;
         this.nom = nom;
@@ -57,7 +57,7 @@ public class Sac  implements Serializable {
         return false;
     }
 
-    public double getPrix() {
+    public Float getPrix() {
         return prix;
     }
 
@@ -84,7 +84,7 @@ public class Sac  implements Serializable {
         this.payee = payee;
     }
 
-    public void setPrix(double prix) {
+    public void setPrix(Float prix) {
         this.prix = prix;
     }
 

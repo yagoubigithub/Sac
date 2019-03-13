@@ -69,7 +69,7 @@ public class AjouterClient extends SQLiteOpenHelper {
         return res;
     }
 
-    public boolean AjouterSac(int id_client, String name, String code_bare,String codeBareFormat, int payee, double prix,double qte , ArrayList<String> images){
+    public boolean AjouterSac(int id_client, String name, String code_bare,String codeBareFormat, int payee, Float prix,int qte , ArrayList<String> images){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
@@ -135,6 +135,19 @@ public class AjouterClient extends SQLiteOpenHelper {
         cv.put("name", name);
         cv.put("Tele", Tele);
         return db.update(TABLE_NAME, cv, "id="+id, null) > 0;
+
+
+    }
+    //
+
+    public boolean updatePyee(int id, int pyee){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put("PAYEE", pyee);
+
+        return db.update("article", cv, "id="+id, null) > 0;
 
 
     }

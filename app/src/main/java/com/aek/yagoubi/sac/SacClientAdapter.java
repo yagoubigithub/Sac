@@ -12,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.Filterable;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -60,6 +62,34 @@ public class SacClientAdapter   extends ArrayAdapter<SacClient>  {
         list_item_sacclient_prix.setText("Prix : " + sacClient.getSac().getPrix());
         list_item_sacclient_prix_total.setText("Prix Totale : " + (sacClient.getSac().getPrix() * sacClient.getSac().getQte()));
         list_item_sacclient_qte.setText("Quantité : " + sacClient.getSac().getQte());
+
+
+
+        final CheckBox checkBox = (CheckBox) listItemView.findViewById(R.id.list_item_paye_Checkbox_sacclient);
+        checkBox.setChecked(sacClient.getSac().isPayee());
+
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    //
+                    boolean b =  database.updatePyee(sacClient.getSac().getId(),1);
+                    if(!b){
+                        checkBox.setChecked(false);
+                        Toast.makeText(myContext, "Error",Toast.LENGTH_LONG).show();
+                        ((Activity) myContext).finish();
+                    }
+                }else{
+                    //
+                    boolean b =   database.updatePyee(sacClient.getSac().getId(),0);
+                    if(!b){
+                        checkBox.setChecked(true);
+                        Toast.makeText(myContext, "Error",Toast.LENGTH_LONG).show();
+                        ((Activity) myContext).finish();
+                    }
+                }
+            }
+        });
 
         LinearLayout mySacClientItemLinearLyout = (LinearLayout)listItemView.findViewById(R.id.mySacClientItemLinearLyout);
 

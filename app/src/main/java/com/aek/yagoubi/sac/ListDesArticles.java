@@ -35,7 +35,7 @@ public class ListDesArticles extends AppCompatActivity {
         while (res.moveToNext()) {
             sacs.add(new SacClient(new Sac(res.getInt(0), res.getInt(1), res.getString(2),
                     res.getString(3), res.getString(4), res.getInt(5),
-                    res.getDouble(6), res.getInt(7)),
+                    res.getFloat(6), res.getInt(7)),
                     new Client(res.getInt(1),
                             res.getString(8), res.getString(9)))
             );
@@ -98,7 +98,7 @@ public class ListDesArticles extends AppCompatActivity {
         while (res.moveToNext()) {
             sacs.add(new SacClient(new Sac(res.getInt(0), res.getInt(1), res.getString(2),
                     res.getString(3), res.getString(4), res.getInt(5),
-                    res.getDouble(6), res.getInt(7)),
+                    res.getFloat(6), res.getInt(7)),
                     new Client(res.getInt(1),
                             res.getString(8), res.getString(9)))
             );

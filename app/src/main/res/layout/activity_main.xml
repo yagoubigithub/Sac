@@ -137,6 +137,7 @@
             android:layout_weight="1">
 
             <LinearLayout
+                android:id="@+id/ajouter_articles_btn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="?android:attr/selectableItemBackground"
