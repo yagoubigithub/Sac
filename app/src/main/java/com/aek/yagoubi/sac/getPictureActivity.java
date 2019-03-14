@@ -28,16 +28,18 @@ import java.util.ArrayList;
 public class getPictureActivity extends AppCompatActivity {
 
 
-    String  fileNames = "";
+    String  fileNames  = "";
     Camera camera;
     FrameLayout frameLayout;
     ShowCamera showCamera;
-    Button CaptureBtn,galerieBtn;
+    Button CaptureBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_picture);
+
+
         frameLayout = (FrameLayout) findViewById(R.id.frameLayout);
         ImageButton closeCameraBtn = (ImageButton) findViewById(R.id.closeCameraBtn);
 
@@ -60,7 +62,6 @@ public class getPictureActivity extends AppCompatActivity {
         frameLayout.addView(showCamera);
 
         CaptureBtn = (Button) findViewById(R.id.CaptureBtn);
-        galerieBtn = (Button) findViewById(R.id.galerieBtn);
 
         CaptureBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,14 +72,7 @@ public class getPictureActivity extends AppCompatActivity {
             }
         });
 
-        galerieBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent  = new Intent(getPictureActivity.this, GalleryActivity.class);
-                intent.putExtra("fileNames", fileNames);
-                startActivity(intent);
-            }
-        });
+
 
     }
 

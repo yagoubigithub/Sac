@@ -117,33 +117,36 @@ public class AjouterSac extends AppCompatActivity {
                for (int i = 0;i <fileNamesArray.length;i++){
 
 
+                   Toast.makeText(this, "AjouterSac onActivity" + fileNamesArray[i],Toast.LENGTH_LONG).show();
                    fileNames.add(fileNamesArray[i]);
                }
 
             }
 
-        }
+        }else{
+            IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+            if (scanningResult != null) {
+                String scanContent = scanningResult.getContents();
+                String scanFormat = scanningResult.getFormatName();
+                if(scanContent != null && scanFormat != null){
+                    //formatTxt.setText("FORMAT: " + scanFormat);
+                    //contentTxt.setText("CONTENT: " + scanContent);
+                    sContent = scanContent;
+                    sFormat = scanFormat;
+                    codebare_text.setText(scanContent);
 
-        IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if (scanningResult != null) {
-            String scanContent = scanningResult.getContents();
-            String scanFormat = scanningResult.getFormatName();
-            if(scanContent != null && scanFormat != null){
-                //formatTxt.setText("FORMAT: " + scanFormat);
-                //contentTxt.setText("CONTENT: " + scanContent);
-                sContent = scanContent;
-                sFormat = scanFormat;
-                codebare_text.setText(scanContent);
 
+                }
 
             }
+            else{
+                Toast toast = Toast.makeText(getApplicationContext(),
+                        "No scan data received!", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        }
 
-        }
-        else{
-            Toast toast = Toast.makeText(getApplicationContext(),
-                    "No scan data received!", Toast.LENGTH_SHORT);
-            toast.show();
-        }
+
     }
 
 

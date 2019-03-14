@@ -49,6 +49,17 @@ public class AjouterClient extends SQLiteOpenHelper {
             return true;
         }
     }
+    public long AjouterClientAndReturnId(String name, String tele ){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("name",name);
+        contentValues.put("tele",tele);
+
+        long result =  db.insert(TABLE_NAME,null,contentValues);
+
+       return  result;
+    }
 
 
     public Cursor getAllClients(){
@@ -91,7 +102,7 @@ public class AjouterClient extends SQLiteOpenHelper {
             newContent.put("ID_ARTICLE",result);
             newContent.put("filename",images.get(i));
 
-            db.insert("images",null,contentValues);
+          db.insert("images",null,newContent);
         }
         if(result == -1){
             return false;
@@ -148,6 +159,45 @@ public class AjouterClient extends SQLiteOpenHelper {
         cv.put("PAYEE", pyee);
 
         return db.update("article", cv, "id="+id, null) > 0;
+
+
+    }
+    public Cursor searchCodeBare(String codeBare, String codeBareFormat){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res  = db.rawQuery("SELECT * FROM article WHERE " +
+                "CODE_BARE="+codeBare + " AND codeBareFormat="+codeBareFormat + " LIMIT 1" ,null);
+        return res;
+    }
+    public Cursor  getArticleImages(int id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res  = db.rawQuery("SELECT *  FROM images WHERE ID_ARTICLE=" + id,null);
+        return res;
+
+
+    }
+    //getAllArticleImages
+
+    public Cursor  getAllArticleImages(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res  = db.rawQuery("SELECT *  FROM images ",null);
+        return res;
+
+
+    }
+    public  boolean updateArticleInformation(int id, int id_client, String nom,
+                                             String code_bare, String codeBareFormat, int payee, Float prix,int qte){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("id_client",id_client);
+        contentValues.put("name",nom);
+        contentValues.put("code_bare",code_bare);
+        contentValues.put("codeBareFormat",codeBareFormat);
+        contentValues.put("payee",payee);
+        contentValues.put("prix",prix);
+        contentValues.put("qte",qte);
+
+        return db.update("article", contentValues, "id="+id, null) > 0;
 
 
     }
