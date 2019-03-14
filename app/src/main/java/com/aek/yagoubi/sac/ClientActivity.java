@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aek.yagoubi.sac.Databases_P.AjouterClient;
@@ -26,7 +27,8 @@ import java.util.List;
 public class ClientActivity extends AppCompatActivity {
     Client client;
     AjouterClient database;
-
+    TextView total_prix;
+    double totale ;
     @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,7 @@ public class ClientActivity extends AppCompatActivity {
         ArrayList<Sac> sacs = new ArrayList<>();
         Intent intent = getIntent();
         client = (Client) intent.getSerializableExtra("client");
+
 
 
         final EditText editText_change_name = (EditText) findViewById(R.id.edit_text_modifier_le_nom_client);
@@ -51,12 +54,16 @@ public class ClientActivity extends AppCompatActivity {
             Cursor res = database.getAllArticlesById(client.getId());
 
 
+            totale = 0;
             while (res.moveToNext()) {
                 sacs.add(new Sac(res.getInt(0), res.getInt(1), res.getString(2),
                         res.getString(3), res.getString(4), res.getInt(5),
                         res.getFloat(6), res.getInt(7)));
+                totale = totale + (res.getInt(7) *  res.getFloat(6));
             }
 
+            total_prix = (TextView) findViewById(R.id.total_prix);
+            total_prix.setText("Totale  :  " + totale + " €");
 
             SacAdapter adapter = new SacAdapter(this, sacs, client);
             ListView listView = (ListView) findViewById(R.id.list_view_articles_in_clientActivity);
@@ -183,13 +190,16 @@ public class ClientActivity extends AppCompatActivity {
         ArrayList<Sac> sacs = new ArrayList<>();
         Cursor res = database.getAllArticlesById(client.getId());
 
+        totale = 0;
         while (res.moveToNext()) {
             sacs.add(new Sac(res.getInt(0), res.getInt(1), res.getString(2),
                     res.getString(3), res.getString(4), res.getInt(5),
                     res.getFloat(6), res.getInt(7)));
+            totale = totale + (res.getInt(7) *  res.getFloat(6));
         }
 
-
+        total_prix = (TextView) findViewById(R.id.total_prix);
+        total_prix.setText("Totale  :  " + totale + " €");
         SacAdapter adapter = new SacAdapter(this, sacs, client);
         ListView listView = (ListView) findViewById(R.id.list_view_articles_in_clientActivity);
 

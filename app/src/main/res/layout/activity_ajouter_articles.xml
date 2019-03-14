@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".AjouterArticles"
     android:orientation="vertical"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:background="#101">
 
     <LinearLayout

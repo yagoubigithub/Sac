@@ -104,10 +104,11 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/total_prix"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
-        android:text="Toatal  : 1484 $"
+        android:text="Totale  : 1484 $"
         android:textColor="#FFF"
         android:textSize="16sp"
         android:textStyle="bold" />
