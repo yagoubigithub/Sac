@@ -62,6 +62,7 @@
             android:textColor="#FFF"
             android:background="#333"
             android:padding="3dp"
+            android:inputType="number"
             android:layout_gravity="center"/>
 
     </LinearLayout>
@@ -95,6 +96,7 @@
             android:textColor="#FFF"
             android:background="#333"
             android:padding="3dp"
+            android:inputType="number"
             android:layout_gravity="center"/>
 
     </LinearLayout>
@@ -206,12 +208,13 @@
 
             android:id="@+id/edit_text_client_tele"
             android:layout_width="match_parent"
-            android:hint="0698221144"
+            android:hint="06 99 99 99"
             android:layout_marginLeft="5dp"
             android:layout_height="wrap_content"
             android:textColor="#FFF"
             android:background="#333"
             android:padding="3dp"
+            android:inputType="number"
             android:layout_gravity="center"/>
 
     </LinearLayout>

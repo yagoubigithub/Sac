@@ -165,7 +165,7 @@ public class AjouterClient extends SQLiteOpenHelper {
     public Cursor searchCodeBare(String codeBare, String codeBareFormat){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res  = db.rawQuery("SELECT * FROM article WHERE " +
-                "CODE_BARE="+codeBare + " AND codeBareFormat="+codeBareFormat + " LIMIT 1" ,null);
+                "CODE_BARE='"+codeBare + "' AND codeBareFormat='"+codeBareFormat + "' LIMIT 1" ,null);
         return res;
     }
     public Cursor  getArticleImages(int id){
@@ -185,7 +185,7 @@ public class AjouterClient extends SQLiteOpenHelper {
 
     }
     public  boolean updateArticleInformation(int id, int id_client, String nom,
-                                             String code_bare, String codeBareFormat, int payee, Float prix,int qte){
+                                             String code_bare, String codeBareFormat, int payee, Float prix,int qte, ArrayList<String> images){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
@@ -196,6 +196,15 @@ public class AjouterClient extends SQLiteOpenHelper {
         contentValues.put("payee",payee);
         contentValues.put("prix",prix);
         contentValues.put("qte",qte);
+
+        for (int i = 0;i < images.size();i++){
+            ContentValues newContent = new ContentValues();
+
+            newContent.put("ID_ARTICLE",id);
+            newContent.put("filename",images.get(i));
+
+            db.insert("images",null,newContent);
+        }
 
         return db.update("article", contentValues, "id="+id, null) > 0;
 

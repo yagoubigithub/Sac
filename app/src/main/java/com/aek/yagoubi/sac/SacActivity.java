@@ -34,23 +34,19 @@ public class SacActivity extends AppCompatActivity {
     Button change_codebare_btn,see_galerie_btn;
     String fileNames = "";
     ImageButton change_pictures_btn;
+    ArrayList<String> fileNamesList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sac);
         Intent intent = getIntent();
+       fileNamesList = new ArrayList<>();
         client = (Client) intent.getSerializableExtra("client");
         sac = (Sac) intent.getSerializableExtra("sac");
         database = new AjouterClient(this);
 
-     Cursor res =  database.getArticleImages(sac.getId());
 
-     while (res.moveToNext()){
-      fileNames += ","  +   res.getString(2);
-
-
-     }
 
         edit_text_change_article_name =(EditText) findViewById(R.id.edit_text_change_article_name);
         edit_text_change_article_prix =(EditText) findViewById(R.id.edit_text_change_article_prix);
@@ -120,7 +116,7 @@ public class SacActivity extends AppCompatActivity {
 
 
 
-                startActivityForResult(intent1,1);
+                startActivityForResult(intent1,3);
             }
         });
         see_galerie_btn.setOnClickListener(new View.OnClickListener() {
@@ -177,16 +173,13 @@ public class SacActivity extends AppCompatActivity {
 
                 //
 
-                ArrayList<String> fileNamesList = new ArrayList<>();
 
-                String[] fileNamesArray = fileNames.split(",");
-                for (int i = 0;i <fileNamesArray.length;i++){
-                    if(fileNamesArray[i].length()> 0){
-                        fileNamesList.add(fileNamesArray[i]);
-                    }
-                }
+
+
+
                 boolean isSave = database.updateArticleInformation(sac.getId(), sac.getId_client(), nomarticle,
-                        codeBare,codeBareFormat, sac.isPayee() ? 1 : 0,   Float.parseFloat(prix),  Integer.parseInt(qte));
+                        codeBare,codeBareFormat, sac.isPayee() ? 1 : 0,   Float.parseFloat(prix),  Integer.parseInt(qte),
+                        fileNamesList);
                 if(isSave){
                     Toast.makeText(SacActivity.this,"Article enregistré avec succès",Toast.LENGTH_LONG).show();
                     finish();
@@ -207,14 +200,15 @@ public class SacActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode,  Intent data) {
-        if (requestCode == 1) {
+        if (requestCode == 3) {
             if (resultCode == AjouterArticles.RESULT_OK) {
                 // result camera
-                String[] fileNamesArray =  data.getStringExtra("fileNames").split(",");
-                for (int i = 0;i <fileNamesArray.length;i++){
 
-                    if(fileNamesArray[i].length()> 0){
-                        fileNames += "," + fileNamesArray[i];
+                String[] fileNamesArray =  data.getStringExtra("fileNames").split(",");
+                for (int i = 0;i < fileNamesArray.length;i++){
+
+                    if(fileNamesArray[i].length() > 0){
+                       fileNamesList.add(fileNamesArray[i]);
                     }
                 }
 

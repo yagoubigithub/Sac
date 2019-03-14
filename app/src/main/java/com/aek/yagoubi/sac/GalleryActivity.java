@@ -48,4 +48,10 @@ public class GalleryActivity extends AppCompatActivity {
         });
         gridView.setAdapter(adapter);
     }
+
+    @Override
+    protected void onStop() {
+        finish();
+        super.onStop();
+    }
 }

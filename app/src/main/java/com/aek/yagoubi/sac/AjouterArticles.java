@@ -29,14 +29,14 @@ public class AjouterArticles extends AppCompatActivity {
 
     AjouterClient database;
     Cursor res;
-    EditText edit_text_client_tele,edit_text_save_article_name,edit_text_save_article_prix,edit_text_save_article_qte;
+    EditText edit_text_client_tele, edit_text_save_article_name, edit_text_save_article_prix, edit_text_save_article_qte;
     Button ajouter_codebare_btn;
     ImageButton ajouter_picture_btn;
     ArrayList<String> fileNames;
     ArrayList<Client> clients;
     TextView text_view_save_article_codebare;
 
-    String codeBare,codeBareFormat,filenames;
+    String codeBare = "", codeBareFormat = "";
     int id_client = -1;
 
 
@@ -64,9 +64,11 @@ public class AjouterArticles extends AppCompatActivity {
 
 
         }
+
+        fileNames = new ArrayList<>();
         edit_text_client_name.setThreshold(1);
 
-       final  ClientDropDownAdapert adapert = new ClientDropDownAdapert(this,clients);
+        final ClientDropDownAdapert adapert = new ClientDropDownAdapert(this, clients);
         edit_text_client_name.setAdapter(adapert);
 
 
@@ -86,12 +88,13 @@ public class AjouterArticles extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent1 = new Intent(AjouterArticles.this, getPictureActivity.class);
-                intent1.putExtra("fileNames", filenames);
-                startActivityForResult(intent1,1);
+
+                startActivityForResult(intent1, 5);
             }
         });
 
         ajouter_codebare_btn = (Button) findViewById(R.id.ajouter_codebare_btn);
+
 
         ajouter_codebare_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,9 +103,6 @@ public class AjouterArticles extends AppCompatActivity {
                 scanIntegrator.initiateScan();
             }
         });
-
-
-
 
 
         Button btnAjouterArticle = (Button) findViewById(R.id.btnAjouterArticle);
@@ -117,67 +117,75 @@ public class AjouterArticles extends AppCompatActivity {
                 String prix = edit_text_save_article_prix.getText().toString();
                 String qte = edit_text_save_article_qte.getText().toString();
 
-                if(nomarticle.equals("")){
-                    Toast.makeText(AjouterArticles.this,"Le Nom de l'article svp",Toast.LENGTH_LONG).show();
+                if (nomarticle.equals("")) {
+                    Toast.makeText(AjouterArticles.this, "Le Nom de l'article svp", Toast.LENGTH_LONG).show();
                     return;
                 }
-                if(nomeClient.equals("")){
-                    Toast.makeText(AjouterArticles.this,"Le Nom du client svp",Toast.LENGTH_LONG).show();
+                if (nomeClient.equals("")) {
+                    Toast.makeText(AjouterArticles.this, "Le Nom du client svp", Toast.LENGTH_LONG).show();
                     return;
                 }
-                if(prix.equals("")){
-                    Toast.makeText(AjouterArticles.this,"Le Prix svp",Toast.LENGTH_LONG).show();
+                if (prix.equals("")) {
+                    Toast.makeText(AjouterArticles.this, "Le Prix svp", Toast.LENGTH_LONG).show();
                     return;
                 }
-                if(qte.equals("")){
-                    Toast.makeText(AjouterArticles.this,"Le quantité svp",Toast.LENGTH_LONG).show();
+                if (qte.equals("")) {
+                    Toast.makeText(AjouterArticles.this, "Le quantité svp", Toast.LENGTH_LONG).show();
                     return;
                 }
-                try
-                {
+                try {
                     Integer.parseInt(qte);
                     Float.parseFloat(prix);
-                }
-                catch(NumberFormatException e)
-                {
+                } catch (NumberFormatException e) {
 
                     //not a Float
-                    Toast.makeText(AjouterArticles.this,"Le quantité et le prix doit être un nombre svp",Toast.LENGTH_LONG).show();
+                    Toast.makeText(AjouterArticles.this, "Le quantité et le prix doit être un nombre svp", Toast.LENGTH_LONG).show();
                     return;
                 }
 
 
                 boolean isSave = false;
-                if(id_client == -1){
+                if (id_client == -1) {
                     //new Client
 
-                  long  id =    database.AjouterClientAndReturnId(nomeClient,tele);
-                    isSave =  database.AjouterSac((int)id,nomarticle,codeBare,codeBareFormat,0,Float.parseFloat(prix), Integer.parseInt(qte),fileNames);
-                }else{
-                    isSave =  database.AjouterSac(id_client,nomarticle,codeBare,codeBareFormat,0,Float.parseFloat(prix), Integer.parseInt(qte),fileNames);
+                    long id = database.AjouterClientAndReturnId(nomeClient, tele);
+                    isSave = database.AjouterSac((int) id, nomarticle, codeBare, codeBareFormat, 0, Float.parseFloat(prix), Integer.parseInt(qte), fileNames);
+                } else {
+                    isSave = database.AjouterSac(id_client, nomarticle, codeBare, codeBareFormat, 0, Float.parseFloat(prix), Integer.parseInt(qte), fileNames);
                 }
 
 
-                if(isSave){
-                    Toast.makeText(AjouterArticles.this,"Article enregistré avec succès",Toast.LENGTH_LONG).show();
+                if (isSave) {
+                    Toast.makeText(AjouterArticles.this, "Article enregistré avec succès", Toast.LENGTH_LONG).show();
                     finish();
                 }
             }
         });
 
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 1) {
+        edit_text_client_name = (AutoCompleteTextView) findViewById(R.id.edit_text_client_name);
+        edit_text_client_tele = (EditText) findViewById(R.id.edit_text_client_tele);
+        edit_text_save_article_qte = (EditText) findViewById(R.id.edit_text_save_article_qte);
+        edit_text_save_article_prix = (EditText) findViewById(R.id.edit_text_save_article_prix);
+        edit_text_save_article_name = (EditText) findViewById(R.id.edit_text_save_article_name);
+        text_view_save_article_codebare = (TextView) findViewById(R.id.text_view_save_article_codebare);
+
+        if (requestCode == 5) {
             if (resultCode == AjouterArticles.RESULT_OK) {
                 // result camera
-                String[] fileNamesArray =  data.getStringExtra("fileNames").split(",");
-                for (int i = 0;i <fileNamesArray.length;i++){
+                String[] fileNamesArray = data.getStringExtra("fileNames").split(",");
 
-                    fileNames.add(fileNamesArray[i]);
-                    filenames += "," + fileNamesArray[i];
+                for (int i = 0; i < fileNamesArray.length; i++) {
+                    if (fileNamesArray[i].length() > 0) {
+
+                        fileNames.add(fileNamesArray[i]);
+                    }
+
+
                 }
-
             }
 
         }
@@ -186,46 +194,42 @@ public class AjouterArticles extends AppCompatActivity {
         if (scanningResult != null) {
             String scanContent = scanningResult.getContents();
             String scanFormat = scanningResult.getFormatName();
-            if(scanContent != null && scanFormat != null){
+
+            if (scanContent != null && scanFormat != null) {
                 codeBare = scanContent;
                 codeBareFormat = scanFormat;
+
                 text_view_save_article_codebare.setText(codeBare);
 
-                //serch for the code bare if exixst
-              res =   database.searchCodeBare(codeBare, codeBareFormat);
-              if(res.getCount() > 0){
-              /* Sac sac =   new Sac(res.getInt(0), res.getInt(1), res.getString(2),
-                          res.getString(3), res.getString(4), res.getInt(5),
-                          res.getFloat(6), res.getInt(7));*/
-               while (res.moveToNext()){
-                   edit_text_save_article_name.setText(res.getInt(1));
-                   edit_text_save_article_prix.setText(res.getFloat(6) + "");
-                   edit_text_save_article_qte.setText(res.getInt(7) + "");
 
-               }
+                //search for the code bare if exixst
+                res =  database.searchCodeBare(codeBare, codeBareFormat);
+                if (res.getCount() > 0) {
+
+                    Toast.makeText(getApplicationContext(), codeBare + " yes we can ", Toast.LENGTH_LONG).show();
+                        res.moveToFirst();
+                        edit_text_save_article_name.setText(res.getString(2));
+                        edit_text_save_article_prix.setText(res.getFloat(6) + "");
+                        edit_text_save_article_qte.setText(res.getInt(7) + "");
 
 
-                  res = database.getArticleImages( res.getInt(0));
-                  if(res.getCount() > 0){
-                      fileNames.clear();
-                      while (res.moveToNext()){
-                          fileNames.add(res.getString(2));
+                    int article_id = res.getInt(0);
 
-                      }
+                    res = database.getArticleImages(article_id);
+                    if (res.getCount() > 0) {
 
-                  }
+                        while (res.moveToNext()) {
+                            fileNames.add(res.getString(2));
+                        }
+                    }
 
 
-
-              }
+                }
 
             }
 
         }
-        else{
-            Toast toast = Toast.makeText(getApplicationContext(),
-                    "No scan data received!", Toast.LENGTH_SHORT);
-            toast.show();
-        }
+
+
     }
 }
