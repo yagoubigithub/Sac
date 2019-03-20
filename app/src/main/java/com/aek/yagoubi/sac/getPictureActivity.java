@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.hardware.Camera;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -32,7 +34,8 @@ public class getPictureActivity extends AppCompatActivity {
     Camera camera;
     FrameLayout frameLayout;
     ShowCamera showCamera;
-    Button CaptureBtn;
+    ImageView CaptureBtn;
+    MediaPlayer mp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +44,7 @@ public class getPictureActivity extends AppCompatActivity {
 
 
         frameLayout = (FrameLayout) findViewById(R.id.frameLayout);
-        ImageButton closeCameraBtn = (ImageButton) findViewById(R.id.closeCameraBtn);
+        ImageView closeCameraBtn = (ImageView) findViewById(R.id.closeCameraBtn);
 
         closeCameraBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,13 +64,17 @@ public class getPictureActivity extends AppCompatActivity {
         showCamera = new ShowCamera(this, camera);
         frameLayout.addView(showCamera);
 
-        CaptureBtn = (Button) findViewById(R.id.CaptureBtn);
+        CaptureBtn = (ImageView) findViewById(R.id.CaptureBtn);
+
+        mp = MediaPlayer.create(this, R.raw.cameara_sound_capture);
 
         CaptureBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (camera != null) {
                     camera.takePicture(null, null, mPictureCalback);
+
+
                 }
             }
         });
@@ -84,6 +91,7 @@ public class getPictureActivity extends AppCompatActivity {
             //Save picture
 
             if (data != null) {
+                mp.start();
                 Bitmap bitmap = BitmapFactory.decodeByteArray(data , 0, data .length);
 
                 if(bitmap!=null){
@@ -129,6 +137,7 @@ public class getPictureActivity extends AppCompatActivity {
             Intent returnIntent = new Intent();
             returnIntent.putExtra("fileNames",fileNames);
             setResult(getPictureActivity.RESULT_OK,returnIntent);
+            mp.release();
             finish();
 
             return true;

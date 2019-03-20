@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="130dp"
 
@@ -38,35 +39,33 @@
 
                 />
             <TextView
-
                 android:id="@+id/list_item_article_qte"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Quantité : 2"
-
                 />
+
             <TextView
                 android:id="@+id/list_item_article_prix_total"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Prix Totale : 100 $"
                 android:textStyle="bold"
-
-
+                android:textColor="#000"
+                android:padding="2dp"
+                android:background="@android:color/holo_orange_light"
                 />
 
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:gravity="center_vertical|left"
-            android:layout_marginRight="5dp">
+            android:gravity="center_vertical"
+            >
 
-
-
-            <CheckBox android:id="@+id/list_item_paye_Checkbox"
+            <CheckBox
+                android:id="@+id/list_item_paye_Checkbox"
                 android:layout_width="wrap_content"
-                android:layout_marginLeft="5dp"
                 android:layout_height="wrap_content"
                 android:text="Payé"
                 />

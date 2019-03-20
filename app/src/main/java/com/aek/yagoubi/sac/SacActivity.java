@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +36,7 @@ public class SacActivity extends AppCompatActivity {
     String fileNames = "";
     ImageButton change_pictures_btn;
     ArrayList<String> fileNamesList;
+    ImageView btnClose;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,13 @@ public class SacActivity extends AppCompatActivity {
         change_codebare_btn =(Button) findViewById(R.id.change_codebare_btn);
         see_galerie_btn =(Button) findViewById(R.id.see_galerie_btn);
         change_pictures_btn =(ImageButton) findViewById(R.id.change_pictures_btn);
+        btnClose =(ImageView) findViewById(R.id.btnClose);
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
 
         edit_text_change_article_name.setText(sac.getNom());
@@ -111,7 +120,7 @@ public class SacActivity extends AppCompatActivity {
         change_pictures_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent1 = new Intent(SacActivity.this, getPictureActivity.class);
+                Intent intent1 = new Intent(SacActivity.this, getPictureActivity2.class);
 
 
 

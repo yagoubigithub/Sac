@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="130dp"
+    xmlns:tools="http://schemas.android.com/tools"
 
     >
     <LinearLayout
@@ -35,7 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                android:text="Le Nom de Client  : abdou"
+                android:text="Nom de Client  : abdou"
 
 
                 />
@@ -61,6 +62,9 @@
                 android:layout_height="wrap_content"
                 android:text="Prix Totale : 100 $"
                 android:textStyle="bold"
+                android:textColor="#000"
+                android:padding="2dp"
+                android:background="@android:color/holo_orange_light"
 
 
                 />

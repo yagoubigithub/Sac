@@ -13,6 +13,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -22,7 +24,6 @@ import com.aek.yagoubi.sac.Databases_P.AjouterClient;
 
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ClientActivity extends AppCompatActivity {
     Client client;
@@ -34,7 +35,7 @@ public class ClientActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client);
-        ArrayList<Sac> sacs = new ArrayList<>();
+        final ArrayList<Sac> sacs = new ArrayList<>();
         Intent intent = getIntent();
         client = (Client) intent.getSerializableExtra("client");
 
@@ -56,10 +57,13 @@ public class ClientActivity extends AppCompatActivity {
 
             totale = 0;
             while (res.moveToNext()) {
-                sacs.add(new Sac(res.getInt(0), res.getInt(1), res.getString(2),
+                Sac sac = new Sac(res.getInt(0), res.getInt(1), res.getString(2),
                         res.getString(3), res.getString(4), res.getInt(5),
-                        res.getFloat(6), res.getInt(7)));
-                totale = totale + (res.getInt(7) *  res.getFloat(6));
+                        res.getFloat(6), res.getInt(7));
+                sacs.add(sac);
+
+                if(!sac.isPayee())
+                totale = totale + (sac.getQte() *  sac.getPrix());
             }
 
             total_prix = (TextView) findViewById(R.id.total_prix);
@@ -68,9 +72,7 @@ public class ClientActivity extends AppCompatActivity {
             SacAdapter adapter = new SacAdapter(this, sacs, client);
             ListView listView = (ListView) findViewById(R.id.list_view_articles_in_clientActivity);
 
-
             listView.setAdapter(adapter);
-
 
             //Delete client
             FloatingActionButton delete_client_btn = (FloatingActionButton) findViewById(R.id.delete_client_btn);
@@ -178,9 +180,10 @@ public class ClientActivity extends AppCompatActivity {
             });
 
 
-        }
-    }
 
+        }
+
+    }
 
     @Override
     protected void onResume() {
@@ -192,10 +195,13 @@ public class ClientActivity extends AppCompatActivity {
 
         totale = 0;
         while (res.moveToNext()) {
-            sacs.add(new Sac(res.getInt(0), res.getInt(1), res.getString(2),
+            Sac sac = new Sac(res.getInt(0), res.getInt(1), res.getString(2),
                     res.getString(3), res.getString(4), res.getInt(5),
-                    res.getFloat(6), res.getInt(7)));
-            totale = totale + (res.getInt(7) *  res.getFloat(6));
+                    res.getFloat(6), res.getInt(7));
+            sacs.add(sac);
+
+            if(!sac.isPayee())
+                totale = totale + (sac.getQte() *  sac.getPrix());
         }
 
         total_prix = (TextView) findViewById(R.id.total_prix);

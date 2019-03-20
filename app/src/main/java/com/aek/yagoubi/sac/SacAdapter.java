@@ -74,7 +74,9 @@ public class SacAdapter extends ArrayAdapter<Sac> {
                        checkBox.setChecked(false);
                        Toast.makeText(myContext, "Error",Toast.LENGTH_LONG).show();
                        ((Activity) myContext).finish();
+
                    }
+                    notifyDataSetChanged();
                 }else{
                     //
                  boolean b =   database.updatePyee(sac.getId(),0);

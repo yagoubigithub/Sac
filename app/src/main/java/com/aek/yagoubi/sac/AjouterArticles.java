@@ -87,7 +87,7 @@ public class AjouterArticles extends AppCompatActivity {
         ajouter_picture_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent1 = new Intent(AjouterArticles.this, getPictureActivity.class);
+                Intent intent1 = new Intent(AjouterArticles.this, getPictureActivity2.class);
 
                 startActivityForResult(intent1, 5);
             }

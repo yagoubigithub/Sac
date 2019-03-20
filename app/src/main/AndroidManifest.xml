@@ -18,10 +18,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"
-            android:screenOrientation="portrait"
-
-            >
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,51 +30,46 @@
         <activity
             android:name=".ListDesClients"
             android:label="Liste Des Clients"
-            android:screenOrientation="portrait"
-
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ClientActivity"
             android:label="Client"
-            android:screenOrientation="portrait"
-
-            android:parentActivityName=".ListDesClients" />
+            android:parentActivityName=".ListDesClients"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".getPictureActivity"
-            android:screenOrientation="portrait"
-
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".SacActivity"
-            android:screenOrientation="portrait"
-
-            android:label="Sac" />
+            android:label="Sac"
+            android:screenOrientation="portrait" />
         <activity android:name=".QRCodeReaderActivity" />
 
         <meta-data
             android:name="com.google.android.gms.vision.DEPENDENCIES"
             android:value="barcode" />
 
-        <activity android:name=".GalleryActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".FullImageGalleryActivity"
-            android:screenOrientation="portrait"
-            />
+        <activity
+            android:name=".GalleryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".FullImageGalleryActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".AjouterClientActivity"
-            android:screenOrientation="portrait"
-
-            android:parentActivityName=".MainActivity" />
-        <activity android:name=".AjouterSac"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".ListDesArticles"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".AjouterArticles"
-            android:screenOrientation="portrait"
-            ></activity>
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AjouterSac"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ListDesArticles"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AjouterArticles"
+            android:screenOrientation="portrait" />
+        <activity android:name=".getPictureActivity2"></activity>
     </application>
 
 </manifest>
