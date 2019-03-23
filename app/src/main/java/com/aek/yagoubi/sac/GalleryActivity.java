@@ -26,16 +26,19 @@ public class GalleryActivity extends AppCompatActivity {
        int article_id = intent.getIntExtra("article_id",-1);
 
 
+
         AjouterClient database = new AjouterClient(this);
 
         Cursor res = database.getArticleImages(article_id);
+
+
         while (res.moveToNext()){
-            if(res.getString(2).length() > 1){
+            if(res.getString(2).length() > 2){
                 fileNames.add(res.getString(2));
             }
-
-
         }
+
+
         GridView gridView = (GridView)findViewById(R.id.gridView);
         final ImageGalleryAdapter adapter = new ImageGalleryAdapter(this, fileNames);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -49,9 +52,5 @@ public class GalleryActivity extends AppCompatActivity {
         gridView.setAdapter(adapter);
     }
 
-    @Override
-    protected void onStop() {
-        finish();
-        super.onStop();
-    }
+
 }

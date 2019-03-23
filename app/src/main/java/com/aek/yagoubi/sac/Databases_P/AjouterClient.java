@@ -121,6 +121,82 @@ public class AjouterClient extends SQLiteOpenHelper {
         return res;
     }
 
+    public Cursor searchArticlesAndClients(String article_name, String client_name, String codeBare, String codeBareFormat){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res;
+        if(article_name.length() > 0 && client_name.length() > 0 && codeBare.length() > 0){
+           res = db.rawQuery("SELECT \n" +
+                    "article.ID id_article, article.ID_CLIENT ID_CLIENT,\n" +
+                    " article.NAME name_article,article.CODE_BARE, article.codeBareFormat,\n" +
+                    " article.PAYEE,article.PRIX,article.qte,dd.NAME name_client,dd.Tele \n" +
+                    " FROM article  JOIN dd  ON article.ID_CLIENT = dd.ID \n" +
+                    "WHERE article.NAME LIKE '%" +article_name+ "%' AND dd.NAME LIKE '%" + client_name + "%' AND " +
+                   "article.CODE_BARE='"+codeBare+"' AND  article.codeBareFormat='"+codeBareFormat+"'" ,null);
+
+        }else if(article_name.length() > 0 && client_name.length() > 0 && !(codeBare.length() > 0)){
+                res = db.rawQuery("SELECT \n" +
+                        "article.ID id_article, article.ID_CLIENT ID_CLIENT,\n" +
+                        " article.NAME name_article,article.CODE_BARE, article.codeBareFormat,\n" +
+                        " article.PAYEE,article.PRIX,article.qte,dd.NAME name_client,dd.Tele \n" +
+                        " FROM article  JOIN dd  ON article.ID_CLIENT = dd.ID \n" +
+                        "WHERE article.NAME LIKE '%" +article_name+ "%' AND dd.NAME LIKE '%"
+                        + client_name + "%' "  ,null);
+
+            }else if(article_name.length() > 0 && !(client_name.length() > 0) && !(codeBare.length() > 0)){
+            res = db.rawQuery("SELECT \n" +
+                    "article.ID id_article, article.ID_CLIENT ID_CLIENT,\n" +
+                    " article.NAME name_article,article.CODE_BARE, article.codeBareFormat,\n" +
+                    " article.PAYEE,article.PRIX,article.qte,dd.NAME name_client,dd.Tele \n" +
+                    " FROM article  JOIN dd  ON article.ID_CLIENT = dd.ID \n" +
+                    "WHERE article.NAME LIKE '%" +article_name+ "%' "  ,null);
+
+        }else if(article_name.length() > 0 && !(client_name.length() > 0) && (codeBare.length() > 0)){
+            res = db.rawQuery("SELECT \n" +
+                    "article.ID id_article, article.ID_CLIENT ID_CLIENT,\n" +
+                    " article.NAME name_article,article.CODE_BARE, article.codeBareFormat,\n" +
+                    " article.PAYEE,article.PRIX,article.qte,dd.NAME name_client,dd.Tele \n" +
+                    " FROM article  JOIN dd  ON article.ID_CLIENT = dd.ID \n" +
+                    "WHERE article.NAME LIKE '%" +article_name+ "%' AND dd.NAME LIKE '%" + client_name + "%' AND  "+
+                    "article.CODE_BARE='"+codeBare+"' AND  article.codeBareFormat='"+codeBareFormat+"'",null);
+
+        }else if(!(article_name.length() > 0) && (client_name.length() > 0) && (codeBare.length() > 0)){
+            res = db.rawQuery("SELECT \n" +
+                    "article.ID id_article, article.ID_CLIENT ID_CLIENT,\n" +
+                    " article.NAME name_article,article.CODE_BARE, article.codeBareFormat,\n" +
+                    " article.PAYEE,article.PRIX,article.qte,dd.NAME name_client,dd.Tele \n" +
+                    " FROM article  JOIN dd  ON article.ID_CLIENT = dd.ID \n" +
+                    "WHERE dd.NAME LIKE '%" + client_name + "%' AND " +
+                    "article.CODE_BARE='"+codeBare+"' AND  article.codeBareFormat='"+codeBareFormat+"'" ,null);
+
+        } else if((article_name.length() == 0) && (client_name.length() == 0) && (codeBare.length() > 0)){
+            res = db.rawQuery("SELECT \n" +
+                    "article.ID id_article, article.ID_CLIENT ID_CLIENT,\n" +
+                    " article.NAME name_article,article.CODE_BARE, article.codeBareFormat,\n" +
+                    " article.PAYEE,article.PRIX,article.qte,dd.NAME name_client,dd.Tele \n" +
+                    " FROM article  JOIN dd  ON article.ID_CLIENT = dd.ID \n " +
+                    "WHERE "+
+                    "article.CODE_BARE='"+codeBare+"' AND  article.codeBareFormat='"+codeBareFormat+"'" ,null);
+
+        }else if(!(article_name.length() > 0) && (client_name.length() > 0) && !(codeBare.length() > 0)){
+            res = db.rawQuery("SELECT \n" +
+                    "article.ID id_article, article.ID_CLIENT ID_CLIENT,\n" +
+                    " article.NAME name_article,article.CODE_BARE, article.codeBareFormat,\n" +
+                    " article.PAYEE,article.PRIX,article.qte,dd.NAME name_client,dd.Tele \n" +
+                    " FROM article  JOIN dd  ON article.ID_CLIENT = dd.ID \n" +
+                    "WHERE dd.NAME LIKE '%" + client_name + "%' "
+                  ,null);
+
+        }else{
+            res  = db.rawQuery("SELECT \n" +
+                    "article.ID id_article, article.ID_CLIENT ID_CLIENT,\n" +
+                    " article.NAME name_article,article.CODE_BARE, article.codeBareFormat,\n" +
+                    " article.PAYEE,article.PRIX,article.qte,dd.NAME name_client,dd.Tele \n" +
+                    " FROM article  JOIN dd  ON article.ID_CLIENT = dd.ID \n",null);
+        }
+
+        return res;
+    }
+
     public boolean deleteArticleByHisId(int id){
 
         SQLiteDatabase db = this.getWritableDatabase();

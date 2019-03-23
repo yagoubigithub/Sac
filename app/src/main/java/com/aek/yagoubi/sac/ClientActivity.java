@@ -11,11 +11,13 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +32,8 @@ public class ClientActivity extends AppCompatActivity {
     AjouterClient database;
     TextView total_prix;
     double totale ;
+    boolean theChange =false;
+    ImageView btnClose;
     @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,12 +158,8 @@ public class ClientActivity extends AppCompatActivity {
             update_client_information.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String name = editText_change_name.getText().toString();
-                    String Tele = editText_change_tele.getText().toString();
-                    int id = client.getId();
-                    boolean b = database.updateClientInformation(id, name, Tele);
-
-                    if (b) {
+                    boolean isSave =  saveTheChange();
+                    if (isSave) {
                         //refresh
                         //refresh
                         if (android.os.Build.VERSION.SDK_INT >= 11) {
@@ -175,15 +175,68 @@ public class ClientActivity extends AppCompatActivity {
                     } else {
                         Toast.makeText(ClientActivity.this, "Error", Toast.LENGTH_LONG).show();
                     }
-
                 }
             });
 
 
+            btnClose =(ImageView) findViewById(R.id.btnClose);
+            btnClose.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    if(theChange){
+                        final AlertDialog.Builder builder = new AlertDialog.Builder(ClientActivity.this);
+
+                        builder.setMessage("enregistrer les Modification")
+                                .setTitle("Enregistrer");
+                        builder.setPositiveButton("OUI", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                boolean isSave =  saveTheChange();
+
+                                if(isSave){
+                                    finish();
+                                }else{
+                                    Toast.makeText(ClientActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                        builder.setNegativeButton("NON", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                finish();
+                            }
+                        });
+
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                    }else{
+                        finish();
+                    }
+
+                }
+            });
 
         }
 
     }
+
+    private boolean saveTheChange() {
+        final EditText editText_change_name = (EditText) findViewById(R.id.edit_text_modifier_le_nom_client);
+        final EditText editText_change_tele = (EditText) findViewById(R.id.edit_text_modifier_le_tele_client);
+
+        String name = editText_change_name.getText().toString();
+        String Tele = editText_change_tele.getText().toString();
+        int id = client.getId();
+        boolean b = database.updateClientInformation(id, name, Tele);
+        return b;
+
+
+
+    }
+
+
 
     @Override
     protected void onResume() {
@@ -213,5 +266,10 @@ public class ClientActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
 
         super.onResume();
+    }
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        theChange = true;
+        return super.onKeyUp(keyCode, event);
     }
 }

@@ -157,13 +157,13 @@ public class getPictureActivity2 extends AppCompatActivity {
             //Check orientation base on device
             int rotation = getWindowManager().getDefaultDisplay().getRotation();
             captureBuilder.set(CaptureRequest.JPEG_ORIENTATION,ORIENTATIONS.get(rotation));
-            File directory=new File(Environment.getExternalStorageDirectory()+"/dirr");
+            File directory=new File(Environment.getExternalStorageDirectory()+"/dir");
             if(!directory.isDirectory()){
                 directory.mkdir();
             }
-            String filePath = UUID.randomUUID().toString()+".jpg";
+            String filePath = System.currentTimeMillis()+".jpg";
 
-            file = new File(Environment.getExternalStorageDirectory()+"/dirr/"+filePath);
+            file = new File(Environment.getExternalStorageDirectory()+"/dir/"+filePath);
             fileNames += "," + filePath;
             ImageReader.OnImageAvailableListener readerListener = new ImageReader.OnImageAvailableListener() {
                 @Override
@@ -175,7 +175,6 @@ public class getPictureActivity2 extends AppCompatActivity {
                         byte[] bytes = new byte[buffer.capacity()];
                         buffer.get(bytes);
                         save(bytes);
-
                     }
                     catch (FileNotFoundException e)
                     {
@@ -209,7 +208,6 @@ public class getPictureActivity2 extends AppCompatActivity {
                 @Override
                 public void onCaptureCompleted(@NonNull CameraCaptureSession session, @NonNull CaptureRequest request, @NonNull TotalCaptureResult result) {
                     super.onCaptureCompleted(session, request, result);
-                    Toast.makeText(getPictureActivity2.this, "Saved "+file, Toast.LENGTH_SHORT).show();
                     createCameraPreview();
                 }
             };

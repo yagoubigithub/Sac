@@ -67,25 +67,25 @@ public class SacAdapter extends ArrayAdapter<Sac> {
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
                 if(isChecked){
                     //
-                  boolean b =  database.updatePyee(sac.getId(),1);
-                   if(!b){
-                       checkBox.setChecked(false);
-                       Toast.makeText(myContext, "Error",Toast.LENGTH_LONG).show();
-                       ((Activity) myContext).finish();
-
-                   }
-                    notifyDataSetChanged();
+                    boolean b =  database.updatePyee(sac.getId(),1);
+                    if(!b){
+                        checkBox.setChecked(false);
+                        Toast.makeText(myContext, "Error",Toast.LENGTH_LONG).show();
+                        ((Activity) myContext).finish();
+                    }
                 }else{
                     //
-                 boolean b =   database.updatePyee(sac.getId(),0);
+                    boolean b =   database.updatePyee(sac.getId(),0);
                     if(!b){
                         checkBox.setChecked(true);
                         Toast.makeText(myContext, "Error",Toast.LENGTH_LONG).show();
                         ((Activity) myContext).finish();
                     }
                 }
+                /*******************************************************/
             }
         });
         LinearLayout mySacItemLinearLyout = (LinearLayout)listItemView.findViewById(R.id.mySacItemLinearLyout);

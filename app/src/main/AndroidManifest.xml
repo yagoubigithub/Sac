@@ -65,7 +65,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ListDesArticles"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+           />
         <activity
             android:name=".AjouterArticles"
             android:screenOrientation="portrait" />

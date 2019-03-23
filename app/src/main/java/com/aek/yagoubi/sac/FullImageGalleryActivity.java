@@ -27,7 +27,7 @@ public class FullImageGalleryActivity extends AppCompatActivity {
        String fileName =  intent.getStringExtra("fileName");
         try {
             File f = new File(Environment.getExternalStorageDirectory()
-                    + "/dirr",fileName);
+                    + "/dir",fileName);
             Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
 
             imageFullScreen.setScaleType(ImageView.ScaleType.CENTER_CROP);

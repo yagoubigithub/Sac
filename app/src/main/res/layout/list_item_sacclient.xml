@@ -73,14 +73,21 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:orientation="vertical"
             android:gravity="center_vertical">
 
 
             <CheckBox android:id="@+id/list_item_paye_Checkbox_sacclient"
                 android:layout_width="wrap_content"
-                android:layout_marginLeft="5dp"
+                android:layout_marginBottom="10dp"
                 android:layout_height="wrap_content"
                 android:text="Payé"
+                />
+            <CheckBox
+                android:id="@+id/list_item_livre_Checkbox_sacclient"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Livré"
                 />
         </LinearLayout>
     </LinearLayout>

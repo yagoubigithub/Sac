@@ -36,6 +36,7 @@ public class SacActivity extends AppCompatActivity {
     String fileNames = "";
     ImageButton change_pictures_btn;
     ArrayList<String> fileNamesList;
+    boolean theChange =false;
     ImageView btnClose;
 
     @Override
@@ -61,7 +62,38 @@ public class SacActivity extends AppCompatActivity {
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+
+                if(theChange){
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(SacActivity.this);
+
+                    builder.setMessage("enregistrer les Modification")
+                            .setTitle("Enregistrer");
+                    builder.setPositiveButton("OUI", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            boolean isSave =  saveTheChange();
+
+                            if(isSave){
+                                finish();
+                            }else{
+                                Toast.makeText(SacActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                    builder.setNegativeButton("NON", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            finish();
+                        }
+                    });
+
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }else{
+                    finish();
+                }
+
             }
         });
 
@@ -132,6 +164,7 @@ public class SacActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent1 = new Intent(SacActivity.this, GalleryActivity.class);
+
                 intent1.putExtra("article_id", sac.getId());
 
                 startActivity(intent1);
@@ -145,60 +178,63 @@ public class SacActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //update article
-
-                String nomarticle = edit_text_change_article_name.getText().toString();
-
-
-                String prix = edit_text_change_article_prix.getText().toString();
-                String qte = edit_text_change_article_qte.getText().toString();
-                String codeBare = sac.getCode_bare();
-                String codeBareFormat = sac.getCodeBareFormat();
-
-                if(nomarticle.equals("")){
-                    Toast.makeText(SacActivity.this,"Le Nom de l'article svp",Toast.LENGTH_LONG).show();
-                    return;
-                }
-
-                if(prix.equals("")){
-                    Toast.makeText(SacActivity.this,"Le Prix svp",Toast.LENGTH_LONG).show();
-                    return;
-                }
-                if(qte.equals("")){
-                    Toast.makeText(SacActivity.this,"Le quantité svp",Toast.LENGTH_LONG).show();
-                    return;
-                }
-                try
-                {
-                    Integer.parseInt(qte);
-                    Float.parseFloat(prix);
-                }
-                catch(NumberFormatException e)
-                {
-
-                    //not a Float
-                    Toast.makeText(SacActivity.this,"Le quantité et le prix doit être un nombre svp",Toast.LENGTH_LONG).show();
-                    return;
-                }
-
-                //
-
-
-
-
-
-                boolean isSave = database.updateArticleInformation(sac.getId(), sac.getId_client(), nomarticle,
-                        codeBare,codeBareFormat, sac.isPayee() ? 1 : 0,   Float.parseFloat(prix),  Integer.parseInt(qte),
-                        fileNamesList);
+                boolean isSave = saveTheChange();
                 if(isSave){
-                    Toast.makeText(SacActivity.this,"Article enregistré avec succès",Toast.LENGTH_LONG).show();
                     finish();
+                }else{
+                    Toast.makeText(SacActivity.this, "Error", Toast.LENGTH_SHORT).show();
                 }
-
-
 
             }
         });
 
+    }
+
+    private  boolean saveTheChange(){
+        String nomarticle = edit_text_change_article_name.getText().toString();
+
+
+        String prix = edit_text_change_article_prix.getText().toString();
+        String qte = edit_text_change_article_qte.getText().toString();
+        String codeBare = sac.getCode_bare();
+        String codeBareFormat = sac.getCodeBareFormat();
+
+        if(nomarticle.equals("")){
+            Toast.makeText(SacActivity.this,"Le Nom de l'article svp",Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        if(prix.equals("")){
+            Toast.makeText(SacActivity.this,"Le Prix svp",Toast.LENGTH_LONG).show();
+            return false;
+        }
+        if(qte.equals("")){
+            Toast.makeText(SacActivity.this,"Le quantité svp",Toast.LENGTH_LONG).show();
+            return false;
+        }
+        try
+        {
+            Integer.parseInt(qte);
+            Float.parseFloat(prix);
+        }
+        catch(NumberFormatException e)
+        {
+
+            //not a Float
+            Toast.makeText(SacActivity.this,"Le quantité et le prix doit être un nombre svp",Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        //
+
+
+
+
+
+        boolean isSave = database.updateArticleInformation(sac.getId(), sac.getId_client(), nomarticle,
+                codeBare,codeBareFormat, sac.isPayee() ? 1 : 0,   Float.parseFloat(prix),  Integer.parseInt(qte),
+                fileNamesList);
+        return isSave;
     }
 
     @Override
@@ -212,6 +248,8 @@ public class SacActivity extends AppCompatActivity {
         if (requestCode == 3) {
             if (resultCode == AjouterArticles.RESULT_OK) {
                 // result camera
+
+                Toast.makeText(this,data.getStringExtra("fileNames"), Toast.LENGTH_SHORT ).show();
 
                 String[] fileNamesArray =  data.getStringExtra("fileNames").split(",");
                 for (int i = 0;i < fileNamesArray.length;i++){
@@ -246,6 +284,12 @@ public class SacActivity extends AppCompatActivity {
 
 
 
+    }
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        theChange = true;
+        return super.onKeyUp(keyCode, event);
     }
 }
 

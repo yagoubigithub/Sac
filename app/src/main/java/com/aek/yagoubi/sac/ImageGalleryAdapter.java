@@ -39,10 +39,11 @@ public class ImageGalleryAdapter extends ArrayAdapter<String> {
                     R.layout.image_item_gallerie, parent, false);
         }
         String imgPath = getItem(position);
+        Toast.makeText(context, imgPath, Toast.LENGTH_LONG).show();
         ImageView imageView = (ImageView)listItemView.findViewById(R.id.image_gallerie);
         try {
             File f = new File(Environment.getExternalStorageDirectory()
-                    + "/dirr",imgPath);
+                    + "/dir",imgPath);
             Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
             imageView.setImageBitmap(b);
         } catch (FileNotFoundException e) {

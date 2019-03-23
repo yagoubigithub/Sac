@@ -15,6 +15,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,19 +26,20 @@ import com.aek.yagoubi.sac.com.google.zxing.integration.android.IntentResult;
 import java.util.ArrayList;
 
 public class AjouterArticles extends AppCompatActivity {
-    AutoCompleteTextView edit_text_client_name;
+    AutoCompleteTextView edit_text_client_name,edit_text_client_name_final;
 
     AjouterClient database;
     Cursor res;
-    EditText edit_text_client_tele, edit_text_save_article_name, edit_text_save_article_prix, edit_text_save_article_qte;
+    EditText edit_text_client_tele, edit_text_save_article_name, edit_text_save_article_prix, edit_text_save_article_qte,edit_text_client_tele_final;
     Button ajouter_codebare_btn;
     ImageButton ajouter_picture_btn;
     ArrayList<String> fileNames;
     ArrayList<Client> clients;
     TextView text_view_save_article_codebare;
-
+ImageView show_all_client_btn;
     String codeBare = "", codeBareFormat = "";
     int id_client = -1;
+    int id_client2 = -1;
 
 
     @Override
@@ -45,11 +47,15 @@ public class AjouterArticles extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ajouter_articles);
         edit_text_client_name = (AutoCompleteTextView) findViewById(R.id.edit_text_client_name);
+        edit_text_client_name_final = (AutoCompleteTextView) findViewById(R.id.edit_text_client_name_final);
         edit_text_client_tele = (EditText) findViewById(R.id.edit_text_client_tele);
+        edit_text_client_tele_final = (EditText) findViewById(R.id.edit_text_client_tele_final);
+
         edit_text_save_article_qte = (EditText) findViewById(R.id.edit_text_save_article_qte);
         edit_text_save_article_prix = (EditText) findViewById(R.id.edit_text_save_article_prix);
         edit_text_save_article_name = (EditText) findViewById(R.id.edit_text_save_article_name);
         text_view_save_article_codebare = (TextView) findViewById(R.id.text_view_save_article_codebare);
+        show_all_client_btn = (ImageView) findViewById(R.id.show_all_client_btn);
 
 
         database = new AjouterClient(this);
@@ -72,6 +78,7 @@ public class AjouterArticles extends AppCompatActivity {
         edit_text_client_name.setAdapter(adapert);
 
 
+
         edit_text_client_name.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -82,6 +89,25 @@ public class AjouterArticles extends AppCompatActivity {
 
             }
         });
+
+        edit_text_client_name_final.setThreshold(1);
+        edit_text_client_name_final.setAdapter(adapert);
+
+        edit_text_client_name_final.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                id_client2 = clients.get(position).getId();
+                edit_text_client_tele_final.setText(clients.get(position).getNumeroTele());
+            }
+        });
+
+        show_all_client_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                edit_text_client_name.showDropDown();
+            }
+        });
+
 
         ajouter_picture_btn = (ImageButton) findViewById(R.id.ajouter_picture_btn);
         ajouter_picture_btn.setOnClickListener(new View.OnClickListener() {
@@ -206,7 +232,7 @@ public class AjouterArticles extends AppCompatActivity {
                 res =  database.searchCodeBare(codeBare, codeBareFormat);
                 if (res.getCount() > 0) {
 
-                    Toast.makeText(getApplicationContext(), codeBare + " yes we can ", Toast.LENGTH_LONG).show();
+
                         res.moveToFirst();
                         edit_text_save_article_name.setText(res.getString(2));
                         edit_text_save_article_prix.setText(res.getFloat(6) + "");

@@ -115,9 +115,6 @@ public class AjouterSac extends AppCompatActivity {
                 // result camera
                String[] fileNamesArray =  data.getStringExtra("fileNames").split(",");
                for (int i = 0;i <fileNamesArray.length;i++){
-
-
-                   Toast.makeText(this, "AjouterSac onActivity" + fileNamesArray[i],Toast.LENGTH_LONG).show();
                    fileNames.add(fileNamesArray[i]);
                }
 
